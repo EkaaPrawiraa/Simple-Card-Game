@@ -3,7 +3,7 @@ public class Animal implements Storable {
     private int weight;
     final private int weightlimit;
     private String type; // Added type parameter
-
+    // private Product product;
     public Animal(String name, int weight, int weightlimit, String type) {
         this.name = name;
         this.weight = weight;
@@ -38,4 +38,7 @@ public class Animal implements Storable {
     public void addWeight(int weight) {
         this.weight += weight;
     }
+//    public void eat(Product a){
+//        
+//    }
 }
