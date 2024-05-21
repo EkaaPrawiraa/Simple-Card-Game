@@ -10,128 +10,195 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 
-<VBox alignment="CENTER" maxHeight="600.0" maxWidth="1200.0" minHeight="900.0" minWidth="1200.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane minHeight="800.0" minWidth="1200.0" prefHeight="944.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER" prefHeight="25.0" prefWidth="507.0" VBox.vgrow="ALWAYS">
+      <VBox alignment="CENTER" maxHeight="899.0" maxWidth="1203.0" prefHeight="899.0" prefWidth="1203.0" spacing="10.0">
          <children>
-            <HBox prefHeight="75.0" prefWidth="186.0">
+            <HBox alignment="CENTER" minHeight="100.0" prefHeight="25.0" prefWidth="507.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="361.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                  <HBox minWidth="400.0" prefHeight="75.0" prefWidth="186.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYER 1" />
-                        <Text layoutX="30.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYER 1" />
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="361.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYER 1">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="30.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYER 1">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="361.0" spacing="10.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="100$">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="200$">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Circle fill="#cccccc" radius="44.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="CENTER_RIGHT" />
                      </children>
                      <padding>
-                        <Insets left="20.0" />
+                        <Insets right="20.0" />
                      </padding>
-                  </VBox>
-                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="361.0" spacing="10.0">
+                  </StackPane>
+                  <StackPane layoutX="344.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="100$" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="200$" />
+                        <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="181.0" text="Next">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
                      </children>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="233.0" prefWidth="507.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <GridPane fx:id="LADANG" hgap="10.0" minHeight="600.0" minWidth="600.0" prefHeight="251.0" prefWidth="317.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Pane minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.rowIndex="3" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.rowIndex="2" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.rowIndex="1" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="4" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="3" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="2" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="1" />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                  </GridPane>
+                  <VBox alignment="TOP_CENTER" minWidth="300.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="69.0" prefWidth="184.0" text="Ladangku">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="68.0" layoutY="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="184.0" text="Ladang Lawan">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="68.0" layoutY="90.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="184.0" text="Toko">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="68.0" layoutY="170.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="184.0" text="Save State">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="68.0" layoutY="250.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="184.0" text="Load State">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="68.0" layoutY="330.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="184.0" text="Load Plugin">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="100.0" top="20.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
             </HBox>
-            <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" minHeight="150.0" minWidth="500.0" prefHeight="0.0" prefWidth="507.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Circle fill="DODGERBLUE" radius="23.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="CENTER_RIGHT" />
+                  <GridPane fx:id="DECK_ACTIVE" hgap="10.0" minHeight="142.5" minWidth="698.0" prefHeight="56.0" prefWidth="304.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                     <children>
+                        <Pane minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="5" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="4" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="3" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="2" />
+                        <Pane layoutX="10.0" layoutY="10.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc; -fx-border-color: black; -fx-border-radius: 10; -fx-background-radius: 10;" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
                <padding>
-                  <Insets right="20.0" />
+                  <Insets bottom="20.0" left="200.0" top="10.0" />
                </padding>
-            </StackPane>
-            <StackPane layoutX="344.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button mnemonicParsing="false" text="Button" />
-               </children>
-            </StackPane>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
          </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="233.0" prefWidth="507.0" spacing="20.0" VBox.vgrow="ALWAYS">
-         <children>
-            <GridPane fx:id="LADANG" hgap="10.0" prefHeight="251.0" prefWidth="317.0" vgap="10.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Pane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.rowIndex="1" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="1" />
-                  <Pane layoutX="310.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="4" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="3" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="2" />
-                  <Pane layoutX="10.0" layoutY="40.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <Pane layoutX="10.0" layoutY="40.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Pane layoutX="410.0" layoutY="70.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.rowIndex="3" />
-                  <Pane layoutX="10.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Pane layoutX="110.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Pane layoutX="210.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Pane layoutX="310.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.rowIndex="2" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <Pane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" />
-               </children>
-            </GridPane>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="10.0" layoutY="36.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="10.0" layoutY="62.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="10.0" layoutY="88.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="10.0" layoutY="114.0" mnemonicParsing="false" text="Button" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="0.0" prefWidth="507.0" VBox.vgrow="ALWAYS">
-         <children>
-            <GridPane fx:id="DECK_ACTIVE" hgap="5.0" prefHeight="56.0" prefWidth="304.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Pane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="1" />
-                  <Pane layoutX="62.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="2" />
-                  <Pane layoutX="115.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="3" />
-                  <Pane layoutX="168.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="4" />
-                  <Pane layoutX="221.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: gray;" GridPane.columnIndex="5" />
-               </children>
-            </GridPane>
-         </children>
-         <padding>
-            <Insets bottom="10.0" top="10.0" />
-         </padding>
-      </HBox>
+      </VBox>
    </children>
-</VBox>
+</StackPane>
