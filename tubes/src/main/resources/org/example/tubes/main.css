@@ -1,7 +1,48 @@
 
 .button{
-    -fx-text-fill: white;
-    -fx-padding: 10px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-pref-width: 190px;    /* Preferred width */
+    -fx-pref-height: 52px;    /* Preferred height */
+    -fx-min-width: 190px;     /* Minimum width */
+    -fx-min-height: 52px;     /* Minimum height */
+    -fx-max-width: 190px;     /* Maximum width */
+    -fx-max-height: 52px;     /* Maximum height */
+    -fx-font-size: 20px;      /* Font size */
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;   /* Padding inside the button */
+    -fx-background-color: "#D6D6D6"; /* Background color */
+    -fx-text-fill: grey;     /* Text color */
+    -fx-border-radius: 10px;   /* Rounded corners */
+    -fx-background-radius: 10px;
+    -fx-border-color: grey;
+    -fx-border-width: 1.5px;
+}
+
+.next-button{
+    -fx-pref-width: 150px;    /* Preferred width */
+    -fx-pref-height: 70px;    /* Preferred height */
+    -fx-min-width: 150px;     /* Minimum width */
+    -fx-min-height: 70px;     /* Minimum height */
+    -fx-max-width: 150px;     /* Maximum width */
+    -fx-max-height: 70px;     /* Maximum height */
+    -fx-font-size: 25px;      /* Font size */
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;   /* Padding inside the button */
+    -fx-background-color: "#D6D6D6"; /* Background color */
+    -fx-text-fill: grey;     /* Text color */
+    -fx-border-radius: 10px;   /* Rounded corners */
+    -fx-background-radius: 10px;
+    -fx-border-color: grey;
+    -fx-border-width: 1.5px;
+}
+
+.button:hover{
+    -fx-background-color: "#ACACAC";
+    -fx-text-fill: "#E2E2E2";
+}
+
+.card-container{
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-background-border: 10px;
+    -fx-background-color: "#D6D6D6";
 }
