@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.image.*?>
+        <?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.tubes.ShuffleController">
+    <children>
+        <ImageView fx:id="Kartu1" fitHeight="124.0" fitWidth="176.0" layoutX="63.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="Kartu2" fitHeight="124.0" fitWidth="169.0" layoutX="324.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="Kartu3" fitHeight="124.0" fitWidth="169.0" layoutX="67.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="Kartu4" fitHeight="124.0" fitWidth="169.0" layoutX="348.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="Refresh" layoutX="265.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh" />
+    </children>
+</AnchorPane>
