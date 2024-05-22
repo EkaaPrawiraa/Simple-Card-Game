@@ -1,6 +1,7 @@
 package org.example.tubes;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -23,17 +24,24 @@ public class Main {
                 File file = new File(pluginDir, jarFile);
                 URL jarURL = file.toURI().toURL();
                 URLClassLoader classLoader = new URLClassLoader(new URL[]{jarURL}, Main.class.getClassLoader());
-
-                // Iterate over classes in the JAR and check if they implement the Plugin interface
-                // Placeholder function to get class names from JAR
-                List<String> classNames = getClassNamesFromJar(jarFile); // Implement this method
+//                List<String> classNames = getClassNamesFromJar(jarFile); // Implement this method
+                List<String> classNames = getClassNamesFromJar(jarFile);
 
                 for (String className : classNames) {
                     try {
                         Class<?> clazz = classLoader.loadClass(className);
+
+                        // Periksa apakah kelas mengimplementasikan interface Plugin
                         if (Plugin.class.isAssignableFrom(clazz)) {
-                            Plugin plugin = (Plugin) clazz.getDeclaredConstructor().newInstance();
-                            plugins.add(plugin);
+                            // Dapatkan metode 'load' dan 'save' dari kelas
+                            Method loadMethod = clazz.getDeclaredMethod("load", String.class);
+                            Method saveMethod = clazz.getDeclaredMethod("save", String.class, GameState.class);
+
+                            // Jika kelas memiliki kedua metode 'load' dan 'save', tambahkan ke list plugin
+                            if (loadMethod != null && saveMethod != null) {
+                                Plugin plugin = (Plugin) clazz.getDeclaredConstructor().newInstance();
+                                plugins.add(plugin);
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -61,7 +69,7 @@ public class Main {
             Enumeration<JarEntry> entries = jarFile.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
-                if (entry.getName().endsWith(".class")) {
+                if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
                     String className = entry.getName().replace("/", ".").replace(".class", "");
                     classNames.add(className);
                 }
@@ -71,5 +79,4 @@ public class Main {
         }
         return classNames;
     }
-
 }
