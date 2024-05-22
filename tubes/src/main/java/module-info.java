@@ -8,4 +8,6 @@ module org.example.tubes {
 
     opens org.example.tubes to javafx.fxml;
     exports org.example.tubes;
+    exports org.example.tubes.plugin;
+    opens org.example.tubes.plugin to javafx.fxml;
 }
