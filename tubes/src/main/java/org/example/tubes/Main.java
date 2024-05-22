@@ -1,5 +1,8 @@
 package org.example.tubes;
 
+import org.example.tubes.GameState;
+import org.example.tubes.Plugin;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -16,7 +19,23 @@ import java.util.jar.JarFile;
 public class Main {
     public static void main(String[] args) {
         File pluginDir = new File("plugin");
-        final List<Plugin> plugins = new ArrayList<>();
+        final List<Plugin> plugins = loadPluginsFromJar(pluginDir);
+
+        // Example usage
+        Player player1 = null;
+        Player player2 = null;
+        int JumlahTurn=0;
+        Store Toko = null;
+        GameState gameState = new GameState(player1,player2,JumlahTurn,Toko); // Initialize with actual data
+        for (Plugin plugin : plugins) {
+            plugin.save("example_save.json", gameState);
+            GameState loadedState = plugin.load("example_save.json");
+            System.out.println("Loaded state: " + loadedState);
+        }
+    }
+
+    private static List<Plugin> loadPluginsFromJar(File pluginDir) {
+        List<Plugin> plugins = new ArrayList<>();
 
         try {
             List<String> jarFiles = Arrays.asList(pluginDir.list((dir, name) -> name.endsWith(".jar")));
@@ -24,7 +43,6 @@ public class Main {
                 File file = new File(pluginDir, jarFile);
                 URL jarURL = file.toURI().toURL();
                 URLClassLoader classLoader = new URLClassLoader(new URL[]{jarURL}, Main.class.getClassLoader());
-//                List<String> classNames = getClassNamesFromJar(jarFile); // Implement this method
                 List<String> classNames = getClassNamesFromJar(jarFile);
 
                 for (String className : classNames) {
@@ -52,16 +70,8 @@ public class Main {
             e.printStackTrace();
         }
 
-        // Example usage
-        GameState gameState = new GameState(); // Initialize with actual data
-        for (Plugin plugin : plugins) {
-            plugin.save("example_save.json", gameState);
-            GameState loadedState = plugin.load("example_save.json");
-            System.out.println("Loaded state: " + loadedState);
-        }
+        return plugins;
     }
-
-
 
     private static List<String> getClassNamesFromJar(String jarFilePath) {
         List<String> classNames = new ArrayList<>();

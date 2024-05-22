@@ -26,4 +26,24 @@ public class Ladang {
     public Mahluk getMahluk(int location){
         return this.mahluk.get(location);
     }
+    public Produk Harvest(int location){
+        if (mahluk.get(location) instanceof  Hewan ){
+            Hewan hewan = (Hewan) mahluk;
+            if(hewan.getWeight()==((Hewan) mahluk).getHarvest_value())
+                return ((Hewan) mahluk).getHarvest_product();
+            else{
+                return null;
+            }
+        }
+        else if (mahluk.get(location) instanceof  Tanaman ){
+            Tanaman tanaman = (Tanaman) mahluk;
+            if(tanaman.getAge()==((Tanaman) mahluk).getHarvest_value()){
+                return ((Tanaman) mahluk).getHarvest_product();
+            }
+            else{
+                return null;
+            }
+        }
+        return null;
+    }
 }

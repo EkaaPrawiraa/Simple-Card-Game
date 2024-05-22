@@ -28,6 +28,7 @@ public class Tanaman extends Mahluk{
             }
         }else if (Objects.equals(item.getName(), "instant_harvest")){
             //not implemented yet
+            setAge(getHarvest_value());
             System.out.println("belum");
         }else if (Objects.equals(item.getName(), "protect")){
             protect++;

@@ -55,6 +55,7 @@ public class Hewan extends Mahluk implements Doping {
             }
         }else if (Objects.equals(item.getName(), "instant_harvest")){
             //not implemented yet
+            setWeight(getHarvest_value());
             System.out.println("belum");
         }else if (Objects.equals(item.getName(), "protect")){
             protect++;

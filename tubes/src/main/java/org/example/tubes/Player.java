@@ -94,8 +94,10 @@ public class Player {
     public void removeKartu(Kartu kartu) {
         kartuList.remove(kartu);
     }
-//    public void harvest(Mahluk mahluk){
-//        if (mahluk.)
-//
-//    }
+    public void panen(int location){
+        Produk hasil = ladang.Harvest(location);
+        if (hasil != null) {
+            kartuList.add(hasil);
+        }
+    }
 }
