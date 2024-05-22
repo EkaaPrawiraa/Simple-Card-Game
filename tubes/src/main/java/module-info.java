@@ -5,6 +5,8 @@ module org.example.tubes {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.dataformat.yaml;
 
     opens org.example.tubes to javafx.fxml;
     exports org.example.tubes;

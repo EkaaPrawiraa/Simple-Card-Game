@@ -94,8 +94,8 @@ public class Player {
     public void removeKartu(Kartu kartu) {
         kartuList.remove(kartu);
     }
-    public void harvest(Mahluk mahluk){
-        if (mahluk.)
-
-    }
+//    public void harvest(Mahluk mahluk){
+//        if (mahluk.)
+//
+//    }
 }
