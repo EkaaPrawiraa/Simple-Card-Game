@@ -11,7 +11,7 @@ public class Kartu {
         this.propertites = propertites;
     }
     public Kartu(){
-        this.name = null;
+        this.name = "";
         this.assets = null;
         this.propertites = null;
     }

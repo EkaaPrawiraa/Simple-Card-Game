@@ -1,8 +1,10 @@
 package org.example.tubes;
 
-import java.util.List;
 
-public class Hewan extends Mahluk {
+import java.util.List;
+import java.util.Objects;
+
+public class Hewan extends Mahluk implements Doping {
     private int weight;
     private String jenis;
 
@@ -39,5 +41,28 @@ public class Hewan extends Mahluk {
         else{
             this.weight +=p.getWeight_added();
         }
+    }
+    public void acceptItem(Item item){
+        if (Objects.equals(item.getEffect(), "accelerate")){
+            accelerate++;
+            setWeight(getWeight()+8);
+        }else if (Objects.equals(item.getEffect(), "delay")){
+            delay++;
+            if (getWeight()<5){
+                setWeight(0);
+            }else{
+                setWeight(getWeight()-5);
+            }
+        }else if (Objects.equals(item.getName(), "instant_harvest")){
+            //not implemented yet
+            System.out.println("belum");
+        }else if (Objects.equals(item.getName(), "protect")){
+            protect++;
+        }else if (Objects.equals(item.getName(), "trap")){
+            trap++;
+        }else if (Objects.equals(item.getName(), "destroy")){
+            System.out.println("belum");
+        }
+
     }
 }

@@ -9,6 +9,10 @@ public class Mahluk extends Kartu{
     private List<Item> effects;
     private int harvest_value;
     private Produk harvet_product;
+    protected int accelerate = 0;
+    protected int delay = 0;
+    protected int protect = 0;
+    protected int trap = 0;
 
     public Mahluk(List<Item> effect,int harvest_min_value,Produk harvest_output,String nama,String asset,String prop){
         super(nama,asset,prop);
@@ -16,6 +20,13 @@ public class Mahluk extends Kartu{
         this.harvest_value = harvest_min_value;
         this.harvet_product = harvest_output;
     }
+    public Mahluk(){
+        super();
+        this.effects = null;
+        this.harvest_value = 0;
+        this.harvet_product = null;
+    }
+
     public List<Item> getEffects() {
         return effects;
     }
@@ -34,10 +45,11 @@ public class Mahluk extends Kartu{
     public void setHarvest_value(int harvest_value) {
         this.harvest_value = harvest_value;
     }
-    public void setHarvet_product(Produk p){
+    public void setHarvest_product(Produk p){
         this.harvet_product = p;
     }
-    public Produk getHarvet_product(){
+    public Produk getHarvest_product(){
         return harvet_product;
     }
 }
+

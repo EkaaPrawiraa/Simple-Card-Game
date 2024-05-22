@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.tubes.LoadController">
-   <Button layoutX="34.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="76.0" text="Kembali" />
+   <Button layoutX="34.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchMain" prefHeight="30.0" prefWidth="76.0" text="Kembali" />
    <Label layoutX="272.0" layoutY="44.0" prefHeight="47.0" prefWidth="76.0" text="Load">
       <font>
          <Font size="33.0" />
@@ -22,7 +22,7 @@
          <Font size="24.0" />
       </font>
    </Label>
-   <TextField layoutX="236.0" layoutY="188.0" prefHeight="25.0" prefWidth="303.0" />
-   <Button layoutX="32.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="507.0" text="Save" />
+   <Button fx:id="selectedFolderButton" layoutX="236.0" layoutY="188.0" mnemonicParsing="false" onAction="#chooseFolder" prefHeight="25.0" prefWidth="303.0" />
+   <Button layoutX="32.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="507.0" text="Load" />
    <Label fx:id="messageLabel" layoutX="32.0" layoutY="282.0" text="" />
 </AnchorPane>

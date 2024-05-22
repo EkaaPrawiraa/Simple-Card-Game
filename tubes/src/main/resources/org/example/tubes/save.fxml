@@ -4,28 +4,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.tubes.SaveController">
-    <Button layoutX="34.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="76.0" text="Kembali"/>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.tubes.SaveController">
+    <Button layoutX="34.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchMain" prefHeight="30.0" prefWidth="76.0" text="Kembali" />
     <Label layoutX="272.0" layoutY="44.0" prefHeight="47.0" prefWidth="76.0" text="Save">
         <font>
-            <Font size="33.0"/>
+            <Font size="33.0" />
         </font>
     </Label>
     <Label layoutX="34.0" layoutY="129.0" text="Format">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Label>
-    <ChoiceBox layoutX="235.0" layoutY="134.0" prefHeight="25.0" prefWidth="303.0"/>
+    <ChoiceBox layoutX="235.0" layoutY="134.0" prefHeight="25.0" prefWidth="303.0" />
     <Label layoutX="32.0" layoutY="182.0" text="Folder">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Label>
-    <TextField layoutX="236.0" layoutY="188.0" prefHeight="25.0" prefWidth="303.0"/>
-    <Button layoutX="32.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="507.0" text="Save"
-            onAction="#handleSave"/>
-    <Label fx:id="messageLabel" layoutX="32.0" layoutY="282.0" text=""/>
+    <Button fx:id="selectedFolderButton" layoutX="236.0" layoutY="188.0" mnemonicParsing="false" onAction="#chooseFolder" prefHeight="25.0" prefWidth="303.0" />
+    <Button layoutX="32.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="507.0" text="Save" />
+    <Label fx:id="messageLabel" layoutX="32.0" layoutY="282.0" text="" />
 </AnchorPane>
-
