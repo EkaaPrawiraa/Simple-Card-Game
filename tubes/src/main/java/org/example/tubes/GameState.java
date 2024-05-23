@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState {
-    private Player player1;
-    private Player player2;
-    private Store Toko;
-    private int jumlahTurn;
-
+    public Player player1;
+    public Player player2;
+    public Store Toko;
+    public int jumlahTurn;
+    public GameState(){
+        this.player1 = new Player();
+        this.player2 = new Player();
+        this.Toko = new Store();
+        this.jumlahTurn = 0;
+    }
     public GameState(Player player1, Player player2, int jumlahTurn, Store toko) {
         this.player1 = player1;
         this.player2 = player2;

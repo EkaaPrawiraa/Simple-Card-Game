@@ -6,7 +6,7 @@ public class Player {
     private Ladang ladang;
     private List<Kartu> kartuList;
     private List<Kartu> activeDeck;
-    private Player(){
+    public Player(){
         gulden = 0;
         ladang = new Ladang();
         kartuList = new ArrayList<>();
