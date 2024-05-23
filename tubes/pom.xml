@@ -21,7 +21,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.13.4</version> <!-- Sesuaikan versi dengan yang Anda butuhkan -->
         </dependency>
-        <!-- Jackson data format YAML -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>

@@ -43,8 +43,6 @@ public class MainController implements Initializable {
         cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/chicken.png"))));
         cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/cow.png"))));
 
-//        Grid1.setImage(cards.get(0));
-//        Grid2.setImage(cards.get(0));
     }
     @FXML
     private void switchload(ActionEvent event) throws Exception{

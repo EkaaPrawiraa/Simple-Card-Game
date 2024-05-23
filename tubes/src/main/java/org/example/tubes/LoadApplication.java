@@ -14,7 +14,6 @@ public class LoadApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("load.fxml")));
-
         // Set the title of the window
         primaryStage.setTitle("JavaFX Form Example");
 
