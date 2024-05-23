@@ -70,9 +70,9 @@ public class IO {
                             line = bufferedReader.readLine();
                             String[] parts = line.split(" ");
                             char a = parts[0].charAt(0);
-                            String b = parts[1].substring(1);
+                            String b = parts[0].substring(1);
                             int index = ((int)a-'A'*5) + Integer.parseInt(b);
-                            //tunggu implementasi ladang di player
+                            gamestate.player1.getLadang().addMahluk(Utility.constructor(parts[2]), index);
                         }
 
                     } catch (IOException e) {
@@ -102,9 +102,9 @@ public class IO {
                             line = bufferedReader.readLine();
                             String[] parts = line.split(" ");
                             char a = parts[0].charAt(0);
-                            String b = parts[1].substring(1);
+                            String b = parts[0].substring(1);
                             int index = ((int)a-'A'*5) + Integer.parseInt(b);
-                            //tunggu implementasi ladang di player
+                            gamestate.player2.getLadang().addMahluk(Utility.constructor(parts[1]), index);
                         }
 
                     } catch (IOException e) {

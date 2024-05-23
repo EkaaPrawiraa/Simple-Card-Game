@@ -4,6 +4,7 @@ public class Kartu {
     private String name;
     private String assets;
     private String propertites;
+    private String path_image;
 
     public Kartu(String name, String assets, String propertites) {
         this.name = name;

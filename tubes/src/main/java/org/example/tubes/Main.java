@@ -1,92 +1,82 @@
 package org.example.tubes;
 
-import org.example.tubes.GameState;
-import org.example.tubes.Plugin;
-
-import java.io.File;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
-public class Main {
-    public static void main(String[] args) {
-        File pluginDir = new File("plugin");
-        final List<Plugin> plugins = loadPluginsFromJar(pluginDir);
+public class Main extends Application {
 
-        // Example usage
-        Player player1 = null;
-        Player player2 = null;
-        int JumlahTurn=0;
+    @Override
+    public void start(Stage primaryStage) {
+        // Initialize all cards and game state
+        List<Kartu> allcards = generateAllCard();
+        Player player1 = new Player();
+        Player player2 = new Player();
+        player1.setKartuList(allcards);
+        player2.setKartuList(allcards);
+        int JumlahTurn = 0;
         Store Toko = null;
-        GameState gameState = new GameState(player1,player2,JumlahTurn,Toko); // Initialize with actual data
-        for (Plugin plugin : plugins) {
-            plugin.save("example_save.json", gameState);
-            GameState loadedState = plugin.load("example_save.json");
-            System.out.println("Loaded state: " + loadedState);
+        GameState gameState = new GameState(player1, player2, JumlahTurn, Toko);
+
+        // Set the number of turns and display the shuffle-card GUI if it's player1's turn
+        gameState.setJumlahTurn();
+        if (gameState.getJumlahTurn() % 2 == 1) {
+            Platform.runLater(() -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("shuffle-kartu.fxml")); // Ensure the path is correct
+                    Parent root = loader.load();
+                    ShuffleController shuffleController = loader.getController();
+                    shuffleController.setPlayerAndCards(gameState.getPlayer1(), gameState);
+//                    shuffleController.initialize();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 
-    private static List<Plugin> loadPluginsFromJar(File pluginDir) {
-        List<Plugin> plugins = new ArrayList<>();
-
-        try {
-            List<String> jarFiles = Arrays.asList(pluginDir.list((dir, name) -> name.endsWith(".jar")));
-            for (String jarFile : jarFiles) {
-                File file = new File(pluginDir, jarFile);
-                URL jarURL = file.toURI().toURL();
-                URLClassLoader classLoader = new URLClassLoader(new URL[]{jarURL}, Main.class.getClassLoader());
-                List<String> classNames = getClassNamesFromJar(jarFile);
-
-                for (String className : classNames) {
-                    try {
-                        Class<?> clazz = classLoader.loadClass(className);
-
-                        // Periksa apakah kelas mengimplementasikan interface Plugin
-                        if (Plugin.class.isAssignableFrom(clazz)) {
-                            // Dapatkan metode 'load' dan 'save' dari kelas
-                            Method loadMethod = clazz.getDeclaredMethod("load", String.class);
-                            Method saveMethod = clazz.getDeclaredMethod("save", String.class, GameState.class);
-
-                            // Jika kelas memiliki kedua metode 'load' dan 'save', tambahkan ke list plugin
-                            if (loadMethod != null && saveMethod != null) {
-                                Plugin plugin = (Plugin) clazz.getDeclaredConstructor().newInstance();
-                                plugins.add(plugin);
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return plugins;
+    // Main method to launch the application
+    public static void main(String[] args) {
+        launch(args);
     }
 
-    private static List<String> getClassNamesFromJar(String jarFilePath) {
-        List<String> classNames = new ArrayList<>();
-        try (JarFile jarFile = new JarFile(jarFilePath)) {
-            Enumeration<JarEntry> entries = jarFile.entries();
-            while (entries.hasMoreElements()) {
-                JarEntry entry = entries.nextElement();
-                if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
-                    String className = entry.getName().replace("/", ".").replace(".class", "");
-                    classNames.add(className);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return classNames;
+
+    public static List<Kartu> generateAllCard(){
+        List<Kartu> cards = new ArrayList<>();
+//        cards.add(new Kartu("Bear", null, "/Hewan/bear.png"));
+        cards.add(Utility.constructor("Ayam"));
+        cards.add(Utility.constructor("Sapi"));
+        cards.add(Utility.constructor("Hiu Darat"));
+        cards.add(Utility.constructor("kuda"));
+        cards.add(Utility.constructor("Domba"));
+        cards.add(Utility.constructor("Accelerate"));
+        cards.add(Utility.constructor("Bear Trap"));
+        cards.add(Utility.constructor("Delay"));
+        cards.add(Utility.constructor("Destroy"));
+        cards.add(Utility.constructor("Instant Harvest"));
+        cards.add(Utility.constructor("Protect"));
+        cards.add(Utility.constructor("Biji Jagung"));
+        cards.add(Utility.constructor("Biji Labu"));
+        cards.add(Utility.constructor("Biji Stroberi"));
+        cards.add(Utility.constructor("jagung"));
+        cards.add(Utility.constructor("daging domba"));
+        cards.add(Utility.constructor("daging kuda"));
+        cards.add(Utility.constructor("Biji Labu"));
+        cards.add(Utility.constructor("sirip hiu"));
+        cards.add(Utility.constructor("stroberi"));
+        cards.add(Utility.constructor("susu"));
+        cards.add(Utility.constructor("telur"));
+
+        return cards;
     }
 }

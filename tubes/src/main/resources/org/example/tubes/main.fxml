@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="970.0" prefWidth="1219.0" styleClass="@main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.tubes.MainController">
@@ -63,7 +62,7 @@
                      </padding></StackPane>
                   <StackPane layoutX="887.0" layoutY="10.0" prefHeight="112.0" prefWidth="493.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="next-button" text="Next">
+                        <Button fx:id="Next" mnemonicParsing="false" onAction="#handlenextbutton" styleClass="next-button" text="Next">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -79,19 +78,19 @@
          </top>
          <center>
             <GridPane fx:id="ladang" alignment="CENTER" prefHeight="633.0" prefWidth="749.0" style="-fx-alignment: center;" vgap="15.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <BorderPane.margin>
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </BorderPane.margin>
@@ -123,29 +122,25 @@
             <HBox alignment="CENTER_LEFT" prefHeight="183.0" prefWidth="1179.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <GridPane fx:id="deck" hgap="10.0" prefHeight="163.0" prefWidth="776.0" style="-fx-max-height: inherit; -fx-min-height: inherit; -fx-pref-height: inherit;">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
 
-                                    <StackPane layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <StackPane layoutX="10.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         <StackPane layoutX="143.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                         <StackPane layoutX="276.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                         <StackPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="4" GridPane.rowIndex="0" />
-                        <StackPane layoutX="408.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="5" GridPane.rowIndex="0">
-                           <children>
-                              <Rectangle fx:id="myrect" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="147.0" onDragDetected="#handleCardDragDetection" stroke="BLACK" strokeType="INSIDE" width="120.04" />
-                           </children>
-                        </StackPane>
+                        <StackPane layoutX="408.0" layoutY="12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="120.4" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: grey; -fx-border-style: segments(10, 5);" styleClass="card-container" GridPane.columnIndex="5" GridPane.rowIndex="0" />
                      </children>
                   </GridPane>
                   <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="165.0" style="-fx-alignment: center; -fx-background-color: #D6D6D6; -fx-border-color: grey; -fx-border-width: 1.5; -fx-border-radius: 10; -fx-background-radius: 10;">

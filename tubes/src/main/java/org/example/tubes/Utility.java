@@ -49,9 +49,12 @@ public class Utility {
             return new Item("Instant Harvest", "Instant Harvest", "", "/Item/Instant Harvest.png");
         }else if (namakartu.equalsIgnoreCase("Destroy")){
             return new Item("Destroy", "Destroy", "", "/Item/Destroy.png");
-        }else if (namakartu.equalsIgnoreCase("Protect.png")){
+        }else if (namakartu.equalsIgnoreCase("Protect")){
             return new Item("Protect", "Protect", "", "/Item/Protect.png");
+        } else if (namakartu.equalsIgnoreCase("Bear Trap")) {
+            return new Item("Bear Trap", "Bear Trap", "", "/Item/bear trap.png");
         }else{
+            System.out.println(namakartu);
             return null;
         }
     }

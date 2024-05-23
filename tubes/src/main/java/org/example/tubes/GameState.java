@@ -34,8 +34,8 @@ public class GameState {
 
     }
 
-    public void setJumlahTurn(int jumlahTurn) {
-        this.jumlahTurn = jumlahTurn;
+    public void setJumlahTurn() {
+        this.jumlahTurn++;
     }
     public void setPlayer1(Player player1) {
         this.player1 = player1;

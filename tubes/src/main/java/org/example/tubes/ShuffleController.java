@@ -1,13 +1,18 @@
 package org.example.tubes;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.application.Platform;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 public class ShuffleController {
     @FXML
@@ -22,37 +27,66 @@ public class ShuffleController {
     @FXML
     private ImageView Kartu4;
 
-    private List<Image> cards;
+    private Player player;
+    private List<Kartu> shuffle;
+    private GameState gameState;
 
-    @FXML
-    public void initialize() {
-        // Load images
-        cards = new ArrayList<>();
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/sheep.png"))));
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/bear.png"))));
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/chicken.png"))));
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/cow.png"))));
 
-        // Shuffle images
-        Collections.shuffle(cards);
+    public void setPlayerAndCards(Player player, GameState gamestate) {
+        this.player = player;
+        this.shuffle = this.player.startTurn(this.player.getKartuList());
+        displayCards(this.shuffle);
+        this.gameState = gamestate;
+    }
 
-        // Display shuffled images
-//        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/sheep.png"))); // Ubah path ke gambar yang benar
-        Kartu1.setImage(cards.get(0));
-        Kartu2.setImage(cards.get(1));
-        Kartu3.setImage(cards.get(2));
-        Kartu4.setImage(cards.get(3));
+    private void displayCards(List<Kartu> cards){
+        for(int i = 0; i < cards.size(); i++) {
+            Kartu kartu = cards.get(i);
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getPropertites())));
+            switch (i) {
+                case 0:
+                    Kartu1.setImage(image);
+                    break;
+                case 1:
+                    Kartu2.setImage(image);
+                    break;
+                case 2:
+                    Kartu3.setImage(image);
+                    break;
+                case 3:
+                    Kartu4.setImage(image);
+                    break;
+            }
+        }
     }
 
     @FXML
-    private void handleRefreshButton() {
-        // Shuffle images again when Refresh button is clicked
-        Collections.shuffle(cards);
+    public void initialize() {}
 
-        // Display shuffled images
-        Kartu1.setImage(cards.get(0));
-        Kartu2.setImage(cards.get(1));
-        Kartu3.setImage(cards.get(2));
-        Kartu4.setImage(cards.get(3));
+    @FXML
+    private void handleRefreshButton(ActionEvent event) {
+        this.shuffle = this.player.startTurn(this.player.getKartuList());
+        displayCards(this.shuffle);
+    }
+
+    @FXML
+    private void switchMain(ActionEvent event) throws IOException {
+//        // Hapus kartu dari pemain menggunakan salinan koleksi shuffle
+        Iterator<Kartu> iterator = this.shuffle.iterator();
+        while (iterator.hasNext()) {
+            Kartu kartu = iterator.next();
+            this.player.addActiveDeck(kartu);
+//            this.player.removeKartu(kartu);
+            iterator.remove(); // Menghapus item dari shuffle
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+        MainController mainController = loader.getController();
+        mainController.setPlayerAndCards(this.player, this.gameState);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

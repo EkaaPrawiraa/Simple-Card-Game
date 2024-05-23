@@ -18,10 +18,17 @@ public class Ladang {
     public void setMahluk(List<Mahluk> mahluk) {
         this.mahluk = mahluk;
     }
-    public void addMahluk(Mahluk mahluk,int location) {
-        this.mahluk.set(location, mahluk); }
+    public void addMahluk(Kartu kartu,int location) {
+        if (kartu instanceof Mahluk){
+            Mahluk mahluk = (Mahluk) kartu;
+            this.mahluk.set(location,(Mahluk) mahluk);
+            return;
+        }
+        System.out.println("Bukan mahluk");
+
+    }
     public void dellMahluk(int location){
-        this.mahluk.get(location).setName("");
+        this.mahluk.set(location, new Mahluk());
     }
     public Mahluk getMahluk(int location){
         return this.mahluk.get(location);

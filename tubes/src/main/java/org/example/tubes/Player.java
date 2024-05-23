@@ -32,9 +32,8 @@ public class Player {
         this.ladang = ladang;
     }
 
-    public List<Kartu> generateRandomKartu() {
-        List<Kartu> randomKartuList = new ArrayList<>(kartuList);
-        Collections.shuffle(randomKartuList);
+    public List<Kartu> generateRandomKartu(List<Kartu> cards) {
+        Collections.shuffle(cards);
         int size = 4;
         int availableSlots = 6 - activeDeck.size();
         if (availableSlots < size) {
@@ -43,18 +42,20 @@ public class Player {
         if (availableSlots == 0) {
             return Collections.emptyList();
         }
-        return randomKartuList.subList(0, size);
+        return cards.subList(0, size);
     }
 
-    public void startTurn() {
+    public List<Kartu> startTurn(List<Kartu> cards) {
         if (activeDeck.size() == 6) {
-            return;
+            return null;
         }
-        List<Kartu> newCards = generateRandomKartu();
+//        List<Kartu> ShuffleCards = generateRandomKartu(cards);
 
-        //Algoritma milih kartu dari random kartulist player
-        activeDeck.addAll(newCards);
-        kartuList.removeAll(newCards);
+//        //Algoritma milih kartu dari random kartulist player
+//        activeDeck.addAll(newCards);
+//        kartuList.removeAll(newCards);
+
+        return generateRandomKartu(cards);
     }
 
     public List<Kartu> getKartuList() {
@@ -100,4 +101,5 @@ public class Player {
             kartuList.add(hasil);
         }
     }
+
 }
