@@ -17,7 +17,10 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SaveController {
-
+    private GameState gamestate;
+    public void setGamestate(GameState gamestate) {
+        this.gamestate = gamestate;
+    }
     @FXML
     private Label messageLabel;
 
@@ -49,19 +52,22 @@ public class SaveController {
 
     private boolean performSaveOperation() {
         try{
-//            IO.save(selectedFolderButton.getText(), gamestate);
+            IO.save(selectedFolderButton.getText(), gamestate);
             return true;
         }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }
     @FXML
     private void switchMain(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+        MainController mainController = loader.getController();
+        mainController.setPlayerAndCards(this.gamestate);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("main.css")).toExternalForm());
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 }

@@ -164,23 +164,35 @@ public class MainController {
 
     @FXML
     private void switchload(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("load.fxml"));
+        Parent root = loader.load();
+        LoadController mainController = loader.getController();
+        mainController.setGamestate(this.gamestate);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("load.fxml")));
         stage.setScene(new Scene(root));
         stage.show();
     }
     @FXML
     private void switchsave(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("save.fxml"));
+        Parent root = loader.load();
+        SaveController mainController = loader.getController();
+        mainController.setGamestate(this.gamestate);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("save.fxml")));
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
     private void switchplugin(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("plugin.fxml"));
+        Parent root = loader.load();
+        PluginController mainController = loader.getController();
+        mainController.setGamestate(this.gamestate);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("plugin.fxml")));
         stage.setScene(new Scene(root));
         stage.show();
     }

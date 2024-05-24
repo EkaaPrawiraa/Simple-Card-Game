@@ -16,7 +16,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class LoadController {
+    private GameState gamestate;
     private Runnable mainSceneAction;
+    public void setGamestate(GameState gamestate) {
+        this.gamestate = gamestate;
+    }
     @FXML
     private Label messageLabel;
 
@@ -51,7 +55,7 @@ public class LoadController {
 
     private boolean performLoadOperation() {
         try{
-            IO.load(selectedFolderButton.getText());
+            this.gamestate = IO.load(selectedFolderButton.getText());
             return true;
         } catch (IOException e) {
             return false;
@@ -59,11 +63,13 @@ public class LoadController {
     }
     @FXML
     private void switchMain(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+        MainController mainController = loader.getController();
+        mainController.setPlayerAndCards(this.gamestate);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("main.css")).toExternalForm());
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 

@@ -49,10 +49,12 @@ public class IO {
             List<Kartu> activeDeck = player.getActiveDeck();
             writer.write(String.valueOf(activeDeck.size()));
             writer.newLine();
-            //tulis sisa activedeck
+            //tulis sisa deck
+            writer.write(String.valueOf(player.getKartuList().size()));
+            writer.newLine();
             int i = 0;
             for (Kartu kartu : activeDeck) {
-                if (!Objects.equals(kartu.getName(), "")){
+                if (!Objects.equals(kartu, null)){
                     String characterString = Character.toString((char) (i + 'A'));
                     characterString+="01";
                     writer.write(characterString+" "+ kartu.getName());
@@ -83,8 +85,8 @@ public class IO {
         }
     }
     private static String idxtostring(int idx){
-        int row = idx/4;
-        int col = idx%4;
+        int row = idx/5;
+        int col = idx%5;
         return (char) (row + 'A') + String.format("%02d", col);
     }
     public static GameState load(String folderpath) throws IOException {
@@ -124,12 +126,20 @@ public class IO {
                         gamestate.player1.setGulden(Integer.parseInt(line));
                         line = bufferedReader.readLine();
                         //apain gitu
-                        line = bufferedReader.readLine();
                         int len = Integer.parseInt(line);
-                        List<Kartu> listka = new ArrayList<>(len);
+                        System.out.println(len);
+                        List<Kartu> listka = new ArrayList<>(6);
+                        for (int i = 0; i<6;i++){
+                            listka.add(null);
+                        }
+                        line = bufferedReader.readLine();
+                        gamestate.player1.setKartuList(Main.generateAllCard());
+                        while (gamestate.player1.getKartuList().size()>Integer.parseInt(line)) {
+                            gamestate.player1.getKartuList().removeLast();
+                        }
                         for (int i = 0; i< len;i++){
                             line = bufferedReader.readLine();
-                            String[] parts = line.split(" ");
+                            String[] parts = line.split(" ", 2);
                             char a = parts[0].charAt(0);
                             listka.set(a - 'A', Utility.constructor(parts[1]));
                         }
@@ -139,11 +149,11 @@ public class IO {
 
                         for (int i = 0; i <len; i++ ){
                             line = bufferedReader.readLine();
-                            String[] parts = line.split(" ");
+                            String[] parts = line.split(" ", 2);
                             char a = parts[0].charAt(0);
                             String b = parts[0].substring(1);
-                            int index = ((int)a-'A'*5) + Integer.parseInt(b);
-                            gamestate.player1.getLadang().addMahluk(Utility.constructor(parts[2]), index);
+                            int index = ((int)(a-'A')*5) + Integer.parseInt(b);
+                            gamestate.player1.getLadang().addMahluk(Utility.constructor(parts[1]), index);
                         }
 
                     } catch (IOException e) {
@@ -153,25 +163,29 @@ public class IO {
                     try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path.toFile()))){
                         String line;
                         line = bufferedReader.readLine();
-                        gamestate.player1.setGulden(Integer.parseInt(line));
+                        gamestate.player2.setGulden(Integer.parseInt(line));
                         line = bufferedReader.readLine();
                         //apain gitu
-                        line = bufferedReader.readLine();
                         int len = Integer.parseInt(line);
                         List<Kartu> listka = new ArrayList<>(len);
+                        line = bufferedReader.readLine();
+                        gamestate.player1.setKartuList(Main.generateAllCard());
+                        while (gamestate.player1.getKartuList().size()>Integer.parseInt(line)) {
+                            gamestate.player1.getKartuList().removeLast();
+                        }
                         for (int i = 0; i< len;i++){
                             line = bufferedReader.readLine();
-                            String[] parts = line.split(" ");
+                            String[] parts = line.split(" ", 2);
                             char a = parts[0].charAt(0);
                             listka.set(a - 'A', Utility.constructor(parts[1]));
                         }
-                        gamestate.player1.setActiveDeck(listka);
+                        gamestate.player2.setActiveDeck(listka);
                         line = bufferedReader.readLine();
                         len = Integer.parseInt(line);
 
                         for (int i = 0; i <len; i++ ){
                             line = bufferedReader.readLine();
-                            String[] parts = line.split(" ");
+                            String[] parts = line.split(" ", 2);
                             char a = parts[0].charAt(0);
                             String b = parts[0].substring(1);
                             int index = ((int)a-'A'*5) + Integer.parseInt(b);

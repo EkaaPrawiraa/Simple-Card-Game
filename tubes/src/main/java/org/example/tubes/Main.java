@@ -24,7 +24,7 @@ public class Main extends Application {
         player2.setKartuList(allcards2);
 
         int JumlahTurn = 0;
-        Store Toko = null;
+        Store Toko = new Store();
         GameState gameState = new GameState(player1, player2, JumlahTurn, Toko);
 
         // Set the number of turns and display the shuffle-card GUI if it's player1's turn

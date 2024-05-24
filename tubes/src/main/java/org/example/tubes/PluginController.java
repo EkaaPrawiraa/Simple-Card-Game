@@ -16,7 +16,10 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class PluginController {
-
+    private GameState gamestate;
+    public void setGamestate(GameState gamestate) {
+        this.gamestate = gamestate;
+    }
     @FXML
     private Label messageLabel;
     @FXML
