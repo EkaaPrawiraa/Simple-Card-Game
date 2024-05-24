@@ -50,9 +50,12 @@ public class LoadController {
     }
 
     private boolean performLoadOperation() {
-        // Placeholder for the actual save logic
-        // Return true if save is successful, false otherwise
-        return false; // or false, based on your logic
+        try{
+            IO.load(selectedFolderButton.getText());
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
     @FXML
     private void switchMain(ActionEvent event) throws IOException {

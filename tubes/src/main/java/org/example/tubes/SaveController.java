@@ -48,9 +48,12 @@ public class SaveController {
     }
 
     private boolean performSaveOperation() {
-        // Placeholder for the actual save logic
-        // Return true if save is successful, false otherwise
-        return true; // or false, based on your logic
+        try{
+//            IO.save(selectedFolderButton.getText(), gamestate);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
     @FXML
     private void switchMain(ActionEvent event) throws IOException {
