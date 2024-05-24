@@ -80,10 +80,18 @@ public class ShuffleController {
             iterator.remove(); // Menghapus item dari shuffle
         }
 
+        iterator = this.shuffle.iterator();
+        while (iterator.hasNext()) {
+            Kartu kartu = iterator.next();
+            this.player.removeKartu(kartu);
+//            this.player.removeKartu(kartu);
+            iterator.remove(); // Menghapus item dari shuffle
+        }
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         Parent root = loader.load();
         MainController mainController = loader.getController();
-        mainController.setPlayerAndCards(this.player, this.gameState);
+        mainController.setPlayerAndCards(this.gameState);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

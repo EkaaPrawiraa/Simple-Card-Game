@@ -21,6 +21,7 @@ public class Ladang {
     public void addMahluk(Kartu kartu,int location) {
         if (kartu instanceof Mahluk){
             Mahluk mahluk = (Mahluk) kartu;
+            System.out.println(mahluk.getName());
             this.mahluk.set(location,(Mahluk) mahluk);
             return;
         }
@@ -53,4 +54,5 @@ public class Ladang {
         }
         return null;
     }
+
 }

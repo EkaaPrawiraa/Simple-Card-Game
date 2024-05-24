@@ -57,10 +57,25 @@ public class MainController {
 
     private Map<ImageView, Kartu> kartuMap = new HashMap<>();
 
+    private Kartu card;
 
-    public void setPlayerAndCards(Player player, GameState gamestate) {
-        this.player = player;
+    private int row_origin, col_origin;
+
+    private String grid_origin;
+
+    private List<ImageView> listOfImageViews = new ArrayList<>();
+
+    public void setPlayerAndCards(GameState gamestate) {
         this.gamestate = gamestate;
+        if(this.gamestate.getJumlahTurn() % 2 == 1){
+            this.player = this.gamestate.getPlayer1();
+        }
+        else{
+            this.player = this.gamestate.getPlayer2();
+        }
+//        if(this.player.getLadang().getMahluk(0) != null){
+//
+//        }
         setDeckActive();
     }
 
@@ -77,11 +92,26 @@ public class MainController {
                 imageView.setFitWidth(98); // Set width to 98
                 imageView.setFitHeight(115); // Set height to 115
                 imageView.setOnDragDetected(this::handleCardDragDetection);
+                listOfImageViews.add(imageView);
                 stackPane.getChildren().add(imageView);
                 addKartuMapping(imageView, kartu);
             }
         }
 
+    }
+
+    private void clearpage(){
+        for (ImageView imageView : listOfImageViews) {
+            // Ensure the imageView is not null and has a parent
+            if (imageView != null && imageView.getParent() != null) {
+                ((StackPane) imageView.getParent()).getChildren().remove(imageView);
+            }
+        }
+
+        // Clear the list
+        listOfImageViews.clear();
+
+        System.out.println("All ImageViews have been removed and listOfImageViews is cleared.");
     }
 
     private void moveToLadang(ImageView imageView, int row, int col) {
@@ -173,12 +203,25 @@ public class MainController {
     }
 
     @FXML
+    private void switchToko(ActionEvent event) throws Exception{
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("toko.fxml")));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("toko.css")).toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void handleCardDragDetection(MouseEvent event){
         Node card = (Node) event.getTarget();
         Dragboard db = card.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
-        System.out.println(card.getParent().getParent().getId() + " " + GridPane.getRowIndex(card.getParent()) + " " + GridPane.getColumnIndex(card.getParent()));
-        content.putString(card.getParent().getParent().getId() + " " + GridPane.getRowIndex(card.getParent()) + " " + GridPane.getColumnIndex(card.getParent()));
+        this.card = getKartuFromImageView((ImageView)card);
+        this.grid_origin = card.getParent().getParent().getId();
+        this.row_origin = GridPane.getRowIndex(card.getParent());
+        this.col_origin = GridPane.getColumnIndex(card.getParent());
+        content.putString("dummy");
         db.setContent(content);
         event.consume();
     }
@@ -186,30 +229,74 @@ public class MainController {
     @FXML
     private void handleCardDragOver(DragEvent event){
         if(event.getDragboard().hasString()){
-            event.acceptTransferModes(TransferMode.MOVE);
+            if (this.card instanceof Item || this.card instanceof Produk){
+                StackPane target = (StackPane) event.getTarget();
+                if (!target.getChildren().isEmpty()){
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+            } else {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
         }
     }
 
     @FXML
     private void handleCardDrop(DragEvent event){
-        String message = event.getDragboard().getString();
-        String[] cardID = message.split(" ");
-        if(cardID[0].equals("deck")){
-            StackPane card_holder_target = (StackPane) event.getTarget();
-            StackPane card = (StackPane) getContent(deck, Integer.parseInt(cardID[1]), Integer.parseInt(cardID[2]));
-            card_holder_target.getChildren().add(card.getChildren().getFirst());
+        StackPane card_holder_target = (StackPane) event.getTarget();
+        if(this.grid_origin.equals("deck")){
+            StackPane card = (StackPane) getContent(deck, this.row_origin, this.col_origin);
+//            card_holder_target.getChildren().add((ImageView)card.getChildren().getFirst());
+
+            if (card != null && !card.getChildren().isEmpty()) {
+                ImageView cardImageView = (ImageView) card.getChildren().remove(0);
+
+                if (!card_holder_target.getChildren().isEmpty()) {
+                    // There is already a card in the target holder
+                    ImageView targetCardImageView = (ImageView) card_holder_target.getChildren().get(0);
+                    Kartu targetKartu = getKartuFromImageView(targetCardImageView);
+
+                    if (this.card instanceof Item && targetKartu instanceof Mahluk) {
+                        // Add the effect of the Item to the existing Mahluk in the target holder
+                        ((Mahluk) targetKartu).addEffect((Item) this.card);
+                    }
+                } else {
+                    // No card in the target holder, add the dragged card
+                    card_holder_target.getChildren().add(cardImageView);
+                    Kartu kartu = getKartuFromImageView(cardImageView);
+                    System.out.println(kartu.getName());
+                    int row = GridPane.getRowIndex(card_holder_target);
+                    int col = GridPane.getColumnIndex(card_holder_target);
+                    this.player.getLadang().addMahluk(kartu, row * 4 + col);
+                    this.player.delActiveDeck((Mahluk) kartu);
+                }
+            }
         }
-        if(cardID[0].equals("ladang")){
-            StackPane card_holder_target = (StackPane) event.getTarget();
-            StackPane card = (StackPane) getContent(ladang, Integer.parseInt(cardID[1]), Integer.parseInt(cardID[2]));
-            card_holder_target.getChildren().add(card.getChildren().getFirst());
-//            System.out.println(card.getChildren().getFirst().getClass());
-//            Kartu kartu = getKartuFromImageView((ImageView)card.getChildren().getFirst());
-//            System.out.println(kartu.getName());
-//            System.out.print(GridPane.getRowIndex((Node)event.getTarget()) + " ");
-//            System.out.println(GridPane.getColumnIndex((Node)event.getTarget()));
-//            this.player.getLadang().addMahluk(kartu, GridPane.getRowIndex((Node)event.getTarget())*4 + GridPane.getColumnIndex((Node)event.getTarget()));
-//            this.player.delActiveDeck(kartu);
+        if(this.grid_origin.equals("ladang")){
+            StackPane card = (StackPane) getContent(ladang, this.row_origin, this.col_origin);
+
+            if (card != null && !card.getChildren().isEmpty()) {
+                ImageView cardImageView = (ImageView) card.getChildren().remove(0);
+
+                if (!card_holder_target.getChildren().isEmpty()) {
+                    // There is already a card in the target holder
+                    ImageView targetCardImageView = (ImageView) card_holder_target.getChildren().get(0);
+                    Kartu targetKartu = getKartuFromImageView(targetCardImageView);
+
+                    if (this.card instanceof Item && targetKartu instanceof Mahluk) {
+                        // Add the effect of the Item to the existing Mahluk in the target holder
+                        ((Mahluk) targetKartu).addEffect((Item) this.card);
+                    }
+                } else {
+                    // No card in the target holder, add the dragged card
+                    card_holder_target.getChildren().add(cardImageView);
+                    Kartu kartu = getKartuFromImageView(cardImageView);
+                    System.out.println(kartu.getName());
+                    int row = GridPane.getRowIndex(card_holder_target);
+                    int col = GridPane.getColumnIndex(card_holder_target);
+                    this.player.getLadang().addMahluk(kartu, row * 4 + col);
+                    this.player.delActiveDeck(kartu);
+                }
+            }
         }
     }
 
@@ -222,6 +309,48 @@ public class MainController {
             }
         }
         return null;
+    }
+
+    @FXML
+    private void handleStackPaneClick(MouseEvent event) throws IOException {
+        System.out.println("StackPane clicked!");
+
+        Node node = (Node) event.getTarget();
+
+        // Ensure we get the StackPane, even if the click is on the ImageView
+        while (node != null && !(node instanceof StackPane)) {
+            node = node.getParent();
+        }
+
+        if (node == null || !(node instanceof StackPane)) {
+            System.out.println("No StackPane found in the event target hierarchy.");
+            return;
+        }
+
+        StackPane card_holder_target = (StackPane) node;
+
+        // Ensure the StackPane has children and the first child is an ImageView
+        if (!card_holder_target.getChildren().isEmpty() && card_holder_target.getChildren().get(0) instanceof ImageView) {
+            ImageView targetCardImageView = (ImageView) card_holder_target.getChildren().get(0);
+            Kartu kartu = getKartuFromImageView(targetCardImageView);
+            clearpage();
+
+            if (kartu instanceof Mahluk) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("info-kartu.fxml"));
+                Parent root = loader.load();
+                KartuController kartuController = loader.getController();
+                kartuController.setMahluk((Mahluk) kartu);
+                kartuController.setGameState(this.gamestate);
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } else {
+                System.out.println("The selected card is not a Mahluk.");
+            }
+        } else {
+            System.out.println("No card found in the target StackPane or the card is not an ImageView.");
+        }
     }
 
     @FXML
@@ -245,7 +374,7 @@ public class MainController {
             stage.show();
         }
         else{
-            setPlayerAndCards(this.player, this.gamestate);
+            setPlayerAndCards(this.gamestate);
         }
 
 

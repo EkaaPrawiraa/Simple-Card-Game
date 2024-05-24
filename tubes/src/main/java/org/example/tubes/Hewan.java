@@ -66,4 +66,5 @@ public class Hewan extends Mahluk implements Doping {
         }
 
     }
+
 }

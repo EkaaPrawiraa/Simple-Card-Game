@@ -86,6 +86,7 @@ public class Player {
             System.out.println("BEAK");
         }
         else{
+            System.out.println(kartu.getName());
             activeDeck.remove(kartu);
         }
     }
