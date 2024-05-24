@@ -26,20 +26,25 @@ public class Hewan extends Mahluk implements Doping {
         this.jenis = jenis;
     }
     public void feed(Produk p){
-        if (jenis.equals("KARNIVORA") && (!p.getName().equals("labu")||!p.getName().equals("jagung")||!p.getName().equals("stroberi") ) ){
-            this.weight +=p.getWeight_added();
-        }
-        else if(jenis.equals("KARNIVORA")){
+        System.out.println(jenis);
+        if (jenis.equals("karnivora") && !p.getName().equals("labu") && !p.getName().equals("jagung") && !p.getName().equals("stroberi")){
+            System.out.println(jenis);
+            System.out.println(p.getName());
+            this.weight += p.getWeight_added();
+        }else if (jenis.equals("karnivora") && (p.getName().equals("labu") || p.getName().equals("jagung") || p.getName().equals("stroberi"))){
+            System.out.println(jenis);
+            System.out.println(p.getName());
             System.out.println("Salah makanan");
         }
-        else if (jenis.equals("HERBIVORA") && (p.getName().equals("labu")||p.getName().equals("jagung")||p.getName().equals("stroberi") ) ){
-            this.weight +=p.getWeight_added();
-        }
-        else if (jenis.equals("HERBIVORA")){
+
+        if (jenis.equals("herbivora") && (p.getName().equals("labu") || p.getName().equals("jagung") || p.getName().equals("stroberi"))){
+            System.out.println(jenis);
+            System.out.println(p.getName());
+            this.weight += p.getWeight_added();
+        }else if (jenis.equals("herbivora") && !p.getName().equals("labu") && !p.getName().equals("jagung") && !p.getName().equals("stroberi")){
+            System.out.println(jenis);
+            System.out.println(p.getName());
             System.out.println("Salah makanan");
-        }
-        else{
-            this.weight +=p.getWeight_added();
         }
     }
     public void acceptItem(Item item){

@@ -87,7 +87,6 @@ public class MainController {
             Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getPropertites())));
             StackPane stackPane = getStackPane(deck, row, col);
             if (stackPane != null) {
-                System.out.println("kontol");
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(98); // Set width to 98
                 imageView.setFitHeight(115); // Set height to 115
@@ -218,6 +217,7 @@ public class MainController {
         Dragboard db = card.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         this.card = getKartuFromImageView((ImageView)card);
+        System.out.println(this.card.getClass());
         this.grid_origin = card.getParent().getParent().getId();
         this.row_origin = GridPane.getRowIndex(card.getParent());
         this.col_origin = GridPane.getColumnIndex(card.getParent());
@@ -231,7 +231,7 @@ public class MainController {
         if(event.getDragboard().hasString()){
             if (this.card instanceof Item || this.card instanceof Produk){
                 StackPane target = (StackPane) event.getTarget();
-                if (!target.getChildren().isEmpty()){
+                if (event.getTarget() instanceof ImageView||!target.getChildren().isEmpty()){
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
             } else {
@@ -257,17 +257,24 @@ public class MainController {
 
                     if (this.card instanceof Item && targetKartu instanceof Mahluk) {
                         // Add the effect of the Item to the existing Mahluk in the target holder
+                        if(this.card.getName().equals("Destroy")){
+                            //remove dari list of ladang
+                            card_holder_target.getChildren().clear();
+                        }
                         ((Mahluk) targetKartu).addEffect((Item) this.card);
+                    } else if (this.card instanceof Produk && targetKartu instanceof Hewan) {
+                        System.out.println(targetKartu.getClass());
+                        ((Hewan) targetKartu).feed((Produk) this.card);
                     }
                 } else {
                     // No card in the target holder, add the dragged card
                     card_holder_target.getChildren().add(cardImageView);
                     Kartu kartu = getKartuFromImageView(cardImageView);
-                    System.out.println(kartu.getName());
+                    System.out.println(kartu.getClass());
                     int row = GridPane.getRowIndex(card_holder_target);
                     int col = GridPane.getColumnIndex(card_holder_target);
-                    this.player.getLadang().addMahluk(kartu, row * 4 + col);
-                    this.player.delActiveDeck((Mahluk) kartu);
+                    this.player.getLadang().addMahluk(kartu, row * 4 + col + row);
+                    this.player.delActiveDeck(kartu);
                 }
             }
         }
@@ -275,26 +282,16 @@ public class MainController {
             StackPane card = (StackPane) getContent(ladang, this.row_origin, this.col_origin);
 
             if (card != null && !card.getChildren().isEmpty()) {
-                ImageView cardImageView = (ImageView) card.getChildren().remove(0);
 
-                if (!card_holder_target.getChildren().isEmpty()) {
-                    // There is already a card in the target holder
-                    ImageView targetCardImageView = (ImageView) card_holder_target.getChildren().get(0);
-                    Kartu targetKartu = getKartuFromImageView(targetCardImageView);
-
-                    if (this.card instanceof Item && targetKartu instanceof Mahluk) {
-                        // Add the effect of the Item to the existing Mahluk in the target holder
-                        ((Mahluk) targetKartu).addEffect((Item) this.card);
-                    }
-                } else {
-                    // No card in the target holder, add the dragged card
+                if (card_holder_target.getChildren().isEmpty()) {
+                    ImageView cardImageView = (ImageView) card.getChildren().remove(0);
                     card_holder_target.getChildren().add(cardImageView);
                     Kartu kartu = getKartuFromImageView(cardImageView);
-                    System.out.println(kartu.getName());
+                    System.out.println(kartu.getClass());
                     int row = GridPane.getRowIndex(card_holder_target);
                     int col = GridPane.getColumnIndex(card_holder_target);
-                    this.player.getLadang().addMahluk(kartu, row * 4 + col);
-                    this.player.delActiveDeck(kartu);
+                    this.player.getLadang().getMahluk().set(this.row_origin * 4 + this.col_origin + this.row_origin, null);
+                    this.player.getLadang().addMahluk(kartu, row * 4 + col + row);
                 }
             }
         }

@@ -8,6 +8,9 @@ public class Ladang {
 
     public Ladang() {
         mahluk = new ArrayList<Mahluk>(20);
+        for (int i=0; i<20; i++){
+            mahluk.add(null);
+        }
     }
     public Ladang(List<Mahluk> mahluk) {
         this.mahluk = mahluk;
@@ -19,11 +22,29 @@ public class Ladang {
         this.mahluk = mahluk;
     }
     public void addMahluk(Kartu kartu,int location) {
-        if (kartu instanceof Mahluk){
-            Mahluk mahluk = (Mahluk) kartu;
-            System.out.println(mahluk.getName());
-            this.mahluk.set(location,(Mahluk) mahluk);
-            return;
+        System.out.println(kartu.getClass() + " ladang " + kartu.getName());
+        if (kartu instanceof Tanaman){
+//            Mahluk mahluk = (Tanaman) kartu;
+            try{
+                System.out.println(kartu.getName());
+                this.mahluk.set(location, (Mahluk) kartu);
+                System.out.println(this.mahluk);
+                return;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        if (kartu instanceof Hewan){
+//            Mahluk mahluk = (Hewan) kartu;
+            try{
+                System.out.println(kartu.getName());
+                this.mahluk.set(location, (Mahluk) kartu);
+                System.out.println(this.mahluk);
+                return;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
         System.out.println("Bukan mahluk");
 

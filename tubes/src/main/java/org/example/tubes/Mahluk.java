@@ -38,6 +38,8 @@ public class Mahluk extends Kartu{
     }
     public void addEffect(Item i){
         effects.add(i);
+        System.out.println("penambahan efek " + i.getName() + " berhasil");
+        System.out.println(effects);
     }
     public int getHarvest_value() {
         return harvest_value;
