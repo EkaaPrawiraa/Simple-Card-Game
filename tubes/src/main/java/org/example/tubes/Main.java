@@ -16,11 +16,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Initialize all cards and game state
-        List<Kartu> allcards = generateAllCard();
+        List<Kartu> allcards1 = generateAllCard();
+        List<Kartu> allcards2 = generateAllCard();
         Player player1 = new Player();
         Player player2 = new Player();
-        player1.setKartuList(allcards);
-        player2.setKartuList(allcards);
+        player1.setKartuList(allcards1);
+        player2.setKartuList(allcards2);
+
         int JumlahTurn = 0;
         Store Toko = null;
         GameState gameState = new GameState(player1, player2, JumlahTurn, Toko);
@@ -76,7 +78,24 @@ public class Main extends Application {
         cards.add(Utility.constructor("stroberi"));
         cards.add(Utility.constructor("susu"));
         cards.add(Utility.constructor("telur"));
-
+        cards.add(Utility.constructor("Ayam"));
+        cards.add(Utility.constructor("Sapi"));
+        cards.add(Utility.constructor("Hiu Darat"));
+        cards.add(Utility.constructor("kuda"));
+        cards.add(Utility.constructor("Domba"));
+        cards.add(Utility.constructor("Biji Jagung"));
+        cards.add(Utility.constructor("Biji Labu"));
+        cards.add(Utility.constructor("Biji Stroberi"));
+        cards.add(Utility.constructor("jagung"));
+        cards.add(Utility.constructor("daging domba"));
+        cards.add(Utility.constructor("daging kuda"));
+        cards.add(Utility.constructor("Domba"));
+        cards.add(Utility.constructor("Accelerate"));
+        cards.add(Utility.constructor("Bear Trap"));
+        cards.add(Utility.constructor("Delay"));
+        cards.add(Utility.constructor("Destroy"));
+        cards.add(Utility.constructor("Instant Harvest"));
+        cards.add(Utility.constructor("Accelerate"));
         return cards;
     }
 }

@@ -52,9 +52,15 @@ public class Ladang {
     public void dellMahluk(int location){
         this.mahluk.set(location, new Mahluk());
     }
+    private static String idxtostring(int idx){
+        int row = idx/4;
+        int col = idx%4;
+        return (char) (row + 'A') + String.format("%02d", col);
+    }
     public Mahluk getMahluk(int location){
         return this.mahluk.get(location);
     }
+
     public Produk Harvest(int location){
         if (mahluk.get(location) instanceof  Hewan ){
             Hewan hewan = (Hewan) mahluk;

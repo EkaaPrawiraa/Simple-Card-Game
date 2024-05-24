@@ -91,10 +91,10 @@ public class Player {
         }
     }
     public void addKartu(Kartu kartu) {
-        kartuList.add(kartu);
+        this.kartuList.add(kartu);
     }
     public void removeKartu(Kartu kartu) {
-        kartuList.remove(kartu);
+        this.kartuList.remove(kartu);
     }
     public void panen(int location){
         Produk hasil = ladang.Harvest(location);

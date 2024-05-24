@@ -34,9 +34,11 @@ public class ShuffleController {
 
     public void setPlayerAndCards(Player player, GameState gamestate) {
         this.player = player;
+        System.out.println(this.player.getKartuList().size());
         this.shuffle = this.player.startTurn(this.player.getKartuList());
         displayCards(this.shuffle);
         this.gameState = gamestate;
+        System.out.println(this.gameState.getJumlahTurn());
     }
 
     private void displayCards(List<Kartu> cards){
@@ -71,20 +73,17 @@ public class ShuffleController {
 
     @FXML
     private void switchMain(ActionEvent event) throws IOException {
-//        // Hapus kartu dari pemain menggunakan salinan koleksi shuffle
         Iterator<Kartu> iterator = this.shuffle.iterator();
         while (iterator.hasNext()) {
             Kartu kartu = iterator.next();
             this.player.addActiveDeck(kartu);
-//            this.player.removeKartu(kartu);
-            iterator.remove(); // Menghapus item dari shuffle
+            iterator.remove();
         }
 
         iterator = this.shuffle.iterator();
         while (iterator.hasNext()) {
             Kartu kartu = iterator.next();
             this.player.removeKartu(kartu);
-//            this.player.removeKartu(kartu);
             iterator.remove(); // Menghapus item dari shuffle
         }
 

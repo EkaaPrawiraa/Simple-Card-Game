@@ -13,7 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 
 public class KartuController {
@@ -63,15 +65,38 @@ public class KartuController {
 
     private void updateHewanUI() {
         if (hewan != null) {
+            // Update image
             image.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(hewan.getPropertites()))));
+
+            // Update weight and count
             Weight.setText(String.valueOf(hewan.getWeight()));
-            // Update other UI components related to Hewan
-            // For example:
-//            String message = "(" +
-             Count.setText("(" + String.valueOf(hewan.getHarvest_value()) + ")");
-            // activeItems.setText(hewan.getActiveItemsDescription());
+            Count.setText("(" + String.valueOf(hewan.getHarvest_value()) + ")");
+
+            // Update active items
+            Map<String, Integer> itemCountMap = new HashMap<>();
+            for (Item item : hewan.getEffects()) {
+                String itemName = item.getName();
+                itemCountMap.put(itemName, itemCountMap.getOrDefault(itemName, 0) + 1);
+            }
+
+            // Build the string for Active_Items
+            StringBuilder activeItemsDescription = new StringBuilder();
+            for (Map.Entry<String, Integer> entry : itemCountMap.entrySet()) {
+                activeItemsDescription.append(entry.getKey())
+                        .append("(")
+                        .append(entry.getValue())
+                        .append("), ");
+            }
+
+            // Remove trailing comma and space, if any
+            if (activeItemsDescription.length() > 0) {
+                activeItemsDescription.setLength(activeItemsDescription.length() - 2);
+            }
+
+            Active_Items.setText(activeItemsDescription.toString());
         }
     }
+
 
     private void updateTanamanUI() {
         if (tanaman != null) {
@@ -80,6 +105,28 @@ public class KartuController {
             // For example:
             Weight.setText(String.valueOf(tanaman.getAge()));
             Count.setText("(" + String.valueOf(tanaman.getHarvest_value() + ")"));
+            // Update active items
+            Map<String, Integer> itemCountMap = new HashMap<>();
+            for (Item item : tanaman.getEffects()) {
+                String itemName = item.getName();
+                itemCountMap.put(itemName, itemCountMap.getOrDefault(itemName, 0) + 1);
+            }
+
+            // Build the string for Active_Items
+            StringBuilder activeItemsDescription = new StringBuilder();
+            for (Map.Entry<String, Integer> entry : itemCountMap.entrySet()) {
+                activeItemsDescription.append(entry.getKey())
+                        .append("(")
+                        .append(entry.getValue())
+                        .append("), ");
+            }
+
+            // Remove trailing comma and space, if any
+            if (activeItemsDescription.length() > 0) {
+                activeItemsDescription.setLength(activeItemsDescription.length() - 2);
+            }
+
+            Active_Items.setText(activeItemsDescription.toString());
 //             activeItems.setText(tanaman.getActiveItemsDescription());
         }
     }
@@ -90,14 +137,6 @@ public class KartuController {
 
     @FXML
     public void initialize() {
-        // Memuat gambar dari sumber daya
-        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/sheep.png"))); // Ubah path ke gambar yang benar
-        image.setImage(img);
-
-        // Mengatur nilai label
-        Weight.setText("5");
-        Count.setText("(8)");
-        Active_Items.setText("Accelerate(1), Delay(1)");
     }
 
     @FXML

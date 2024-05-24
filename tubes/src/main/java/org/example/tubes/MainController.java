@@ -32,26 +32,16 @@ public class MainController {
     private GridPane deck;
 
     @FXML
-    private ImageView Grid21;
+    private Label turn_label;
 
     @FXML
-    private ImageView Grid22;
-
-    @FXML
-    private ImageView Grid23;
-
-    @FXML
-    private ImageView Grid24;
-
-    @FXML
-    private ImageView Grid25;
-
-    @FXML
-    private ImageView Grid26;
+    private Label deck_label;
 
     private List<Image> cards;
 
     private Player player;
+
+    private Player musuh;
 
     private GameState gamestate;
 
@@ -63,24 +53,28 @@ public class MainController {
 
     private String grid_origin;
 
-    private List<ImageView> listOfImageViews = new ArrayList<>();
+    private boolean isladangmusuh = false;
+
 
     public void setPlayerAndCards(GameState gamestate) {
         this.gamestate = gamestate;
         if(this.gamestate.getJumlahTurn() % 2 == 1){
             this.player = this.gamestate.getPlayer1();
+            this.musuh = this.gamestate.getPlayer2();
         }
         else{
             this.player = this.gamestate.getPlayer2();
+            this.musuh = this.gamestate.getPlayer1();
         }
-//        if(this.player.getLadang().getMahluk(0) != null){
-//
-//        }
-        setDeckActive();
+        System.out.println(this.player.getKartuList().size());
+        turn_label.setText(String.valueOf(this.gamestate.getJumlahTurn()));
+        deck_label.setText(String.valueOf(this.player.getKartuList().size()) + "/40");
+        setDeckActive(this.player);
+        setLadang(this.player);
     }
 
-    private void setDeckActive(){
-        List<Kartu> dek = this.player.getActiveDeck();
+    private void setDeckActive(Player player){
+        List<Kartu> dek = player.getActiveDeck();
         int row = 0;
         for (int col = 0; col < dek.size(); col++) {
             Kartu kartu = dek.get(col);
@@ -91,7 +85,6 @@ public class MainController {
                 imageView.setFitWidth(98); // Set width to 98
                 imageView.setFitHeight(115); // Set height to 115
                 imageView.setOnDragDetected(this::handleCardDragDetection);
-                listOfImageViews.add(imageView);
                 stackPane.getChildren().add(imageView);
                 addKartuMapping(imageView, kartu);
             }
@@ -99,63 +92,59 @@ public class MainController {
 
     }
 
-    private void clearpage(){
-        for (ImageView imageView : listOfImageViews) {
-            // Ensure the imageView is not null and has a parent
-            if (imageView != null && imageView.getParent() != null) {
-                ((StackPane) imageView.getParent()).getChildren().remove(imageView);
+    private void setLadang(Player player){
+        Ladang dek = player.getLadang();
+        for (int location = 0; location < 20; location++) {
+            if(dek.getMahluk(location) != null){
+                Kartu kartu = dek.getMahluk(location);
+                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getPropertites())));
+                StackPane stackPane = getStackPane(ladang, (int ) location/5, location%5);
+                if (stackPane != null) {
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(98); // Set width to 98
+                    imageView.setFitHeight(115); // Set height to 115
+                    imageView.setOnDragDetected(this::handleCardDragDetection);
+                    stackPane.getChildren().add(imageView);
+                    addKartuMapping(imageView, kartu);
+                }
+            }
+
+        }
+
+    }
+
+    private void clearpage_ladang(){
+        for (Node node : ladang.getChildren()) {
+            if (node instanceof StackPane) {
+                StackPane stackPane = (StackPane) node;
+                if (!stackPane.getChildren().isEmpty()) {
+                    ImageView imageView = (ImageView) stackPane.getChildren().remove(0);
+                    if (imageView != null && imageView.getParent() != null) {
+                        ((StackPane) imageView.getParent()).getChildren().remove(imageView);
+                    }
+                }
             }
         }
 
-        // Clear the list
-        listOfImageViews.clear();
-
-        System.out.println("All ImageViews have been removed and listOfImageViews is cleared.");
+        System.out.println("All ImageViews have been removed and ladang is cleared.");
     }
 
-    private void moveToLadang(ImageView imageView, int row, int col) {
-        // Remove ImageView from its current parent StackPane
-        StackPane currentParent = (StackPane) imageView.getParent();
-        if (currentParent != null) {
-            currentParent.getChildren().remove(imageView);
+    private void clearPage_deck(){
+        for (Node node : deck.getChildren()) {
+            if (node instanceof StackPane) {
+                StackPane stackPane = (StackPane) node;
+                if (!stackPane.getChildren().isEmpty()) {
+                    ImageView imageView = (ImageView) stackPane.getChildren().remove(0);
+                    if (imageView != null && imageView.getParent() != null) {
+                        ((StackPane) imageView.getParent()).getChildren().remove(imageView);
+                    }
+                }
+            }
         }
 
-        // Find the target StackPane in ladang
-        StackPane targetPane = getStackPane(ladang, row, col);
-
-        // Add the ImageView to the target StackPane
-        if (targetPane != null) {
-            targetPane.getChildren().add(imageView);
-        } else {
-            // Create a new StackPane if not found
-            StackPane newStackPane = new StackPane(imageView);
-            GridPane.setRowIndex(newStackPane, row);
-            GridPane.setColumnIndex(newStackPane, col);
-            ladang.getChildren().add(newStackPane);
-        }
+        System.out.println("All ImageViews have been removed and deck is cleared.");
     }
 
-    private void moveToDeck(ImageView imageView, int row, int col) {
-        // Remove ImageView from its current parent StackPane
-        StackPane currentParent = (StackPane) imageView.getParent();
-        if (currentParent != null) {
-            currentParent.getChildren().remove(imageView);
-        }
-
-        // Find the target StackPane in deck
-        StackPane targetPane = getStackPane(deck, row, col);
-
-        // Add the ImageView to the target StackPane
-        if (targetPane != null) {
-            targetPane.getChildren().add(imageView);
-        } else {
-            // Create a new StackPane if not found
-            StackPane newStackPane = new StackPane(imageView);
-            GridPane.setRowIndex(newStackPane, row);
-            GridPane.setColumnIndex(newStackPane, col);
-            deck.getChildren().add(newStackPane);
-        }
-    }
 
     private StackPane getStackPane(GridPane grid, int row, int col) {
         for (Node child : grid.getChildren()) {
@@ -170,11 +159,6 @@ public class MainController {
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cards = new ArrayList<>();
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/sheep.png"))));
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/bear.png"))));
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/chicken.png"))));
-        cards.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Hewan/cow.png"))));
 
     }
 
@@ -232,10 +216,18 @@ public class MainController {
             if (this.card instanceof Item || this.card instanceof Produk){
                 StackPane target = (StackPane) event.getTarget();
                 if (event.getTarget() instanceof ImageView||!target.getChildren().isEmpty()){
-                    event.acceptTransferModes(TransferMode.MOVE);
+                    if(isladangmusuh && this.card.getName() == "Destroy" || this.card.getName() == "Delay"){
+                        event.acceptTransferModes(TransferMode.MOVE);
+                    }
+                    else if(!isladangmusuh){
+                        event.acceptTransferModes(TransferMode.MOVE);
+                    }
+
                 }
             } else {
-                event.acceptTransferModes(TransferMode.MOVE);
+                if(!isladangmusuh){
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
             }
         }
     }
@@ -262,6 +254,12 @@ public class MainController {
                             card_holder_target.getChildren().clear();
                         }
                         ((Mahluk) targetKartu).addEffect((Item) this.card);
+                        if(!isladangmusuh){
+                            this.player.delActiveDeck(this.card);
+                        }
+                        else{
+                            this.musuh.delActiveDeck(this.card);
+                        }
                     } else if (this.card instanceof Produk && targetKartu instanceof Hewan) {
                         System.out.println(targetKartu.getClass());
                         ((Hewan) targetKartu).feed((Produk) this.card);
@@ -282,7 +280,6 @@ public class MainController {
             StackPane card = (StackPane) getContent(ladang, this.row_origin, this.col_origin);
 
             if (card != null && !card.getChildren().isEmpty()) {
-
                 if (card_holder_target.getChildren().isEmpty()) {
                     ImageView cardImageView = (ImageView) card.getChildren().remove(0);
                     card_holder_target.getChildren().add(cardImageView);
@@ -309,12 +306,27 @@ public class MainController {
     }
 
     @FXML
+    private void handleladangku(){
+        this.isladangmusuh = false;
+        clearpage_ladang();
+        setLadang(this.player);
+        System.out.print("Player");
+    }
+
+    @FXML
+    private void handleladangmusuh(){
+        this.isladangmusuh = true;
+        clearpage_ladang();
+        setLadang(this.musuh);
+        System.out.print("Musuh");
+    }
+
+    @FXML
     private void handleStackPaneClick(MouseEvent event) throws IOException {
         System.out.println("StackPane clicked!");
 
         Node node = (Node) event.getTarget();
 
-        // Ensure we get the StackPane, even if the click is on the ImageView
         while (node != null && !(node instanceof StackPane)) {
             node = node.getParent();
         }
@@ -326,11 +338,9 @@ public class MainController {
 
         StackPane card_holder_target = (StackPane) node;
 
-        // Ensure the StackPane has children and the first child is an ImageView
         if (!card_holder_target.getChildren().isEmpty() && card_holder_target.getChildren().get(0) instanceof ImageView) {
             ImageView targetCardImageView = (ImageView) card_holder_target.getChildren().get(0);
             Kartu kartu = getKartuFromImageView(targetCardImageView);
-            clearpage();
 
             if (kartu instanceof Mahluk) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("info-kartu.fxml"));
@@ -365,6 +375,7 @@ public class MainController {
             Parent root = loader.load();
             ShuffleController shuffleController = loader.getController();
             shuffleController.setPlayerAndCards(this.player, this.gamestate);
+
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
