@@ -235,6 +235,8 @@ public class MainController {
     @FXML
     private void handleCardDrop(DragEvent event){
         StackPane card_holder_target = (StackPane) event.getTarget();
+        int row = GridPane.getRowIndex(card_holder_target);
+        int col = GridPane.getColumnIndex(card_holder_target);
         if(this.grid_origin.equals("deck")){
             StackPane card = (StackPane) getContent(deck, this.row_origin, this.col_origin);
 //            card_holder_target.getChildren().add((ImageView)card.getChildren().getFirst());
@@ -252,14 +254,15 @@ public class MainController {
                         if(this.card.getName().equals("Destroy")){
                             //remove dari list of ladang
                             card_holder_target.getChildren().clear();
+                            if(isladangmusuh){
+                                this.musuh.getLadang().dellMahluk(row * 4 + col + row);
+                            }
+                            else{
+                                this.player.getLadang().dellMahluk(row * 4 + col + row);
+                            }
                         }
                         ((Mahluk) targetKartu).addEffect((Item) this.card);
-                        if(!isladangmusuh){
-                            this.player.delActiveDeck(this.card);
-                        }
-                        else{
-                            this.musuh.delActiveDeck(this.card);
-                        }
+                        this.player.delActiveDeck(this.card);
                     } else if (this.card instanceof Produk && targetKartu instanceof Hewan) {
                         System.out.println(targetKartu.getClass());
                         ((Hewan) targetKartu).feed((Produk) this.card);
@@ -269,8 +272,6 @@ public class MainController {
                     card_holder_target.getChildren().add(cardImageView);
                     Kartu kartu = getKartuFromImageView(cardImageView);
                     System.out.println(kartu.getClass());
-                    int row = GridPane.getRowIndex(card_holder_target);
-                    int col = GridPane.getColumnIndex(card_holder_target);
                     this.player.getLadang().addMahluk(kartu, row * 4 + col + row);
                     this.player.delActiveDeck(kartu);
                 }
@@ -285,8 +286,6 @@ public class MainController {
                     card_holder_target.getChildren().add(cardImageView);
                     Kartu kartu = getKartuFromImageView(cardImageView);
                     System.out.println(kartu.getClass());
-                    int row = GridPane.getRowIndex(card_holder_target);
-                    int col = GridPane.getColumnIndex(card_holder_target);
                     this.player.getLadang().getMahluk().set(this.row_origin * 4 + this.col_origin + this.row_origin, null);
                     this.player.getLadang().addMahluk(kartu, row * 4 + col + row);
                 }
