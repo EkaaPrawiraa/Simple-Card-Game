@@ -8,17 +8,20 @@ public class GameState {
     public Player player2;
     public Store Toko;
     public int jumlahTurn;
+    public List<Plugin> availPlugin;
     public GameState(){
         this.player1 = new Player();
         this.player2 = new Player();
         this.Toko = new Store();
         this.jumlahTurn = 0;
+        this.availPlugin = new ArrayList<>();
     }
-    public GameState(Player player1, Player player2, int jumlahTurn, Store toko) {
+    public GameState(Player player1, Player player2, int jumlahTurn, Store toko, List<Plugin> availPlugin) {
         this.player1 = player1;
         this.player2 = player2;
         this.jumlahTurn = jumlahTurn;
         this.Toko = toko;
+        this.availPlugin = availPlugin;
     }
     public Player getPlayer1() {
         return player1;
@@ -45,6 +48,9 @@ public class GameState {
     }
     public void setToko(Store toko) {
         this.Toko = toko;
+    }
+    public void addPlugin(Plugin plugin) {
+        this.availPlugin.add(plugin);
     }
 
 }

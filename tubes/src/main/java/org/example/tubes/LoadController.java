@@ -18,6 +18,7 @@ import java.util.Objects;
 public class LoadController {
     private GameState gamestate;
     private Runnable mainSceneAction;
+
     public void setGamestate(GameState gamestate) {
         this.gamestate = gamestate;
     }

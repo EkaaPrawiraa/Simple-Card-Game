@@ -25,7 +25,8 @@ public class Main extends Application {
 
         int JumlahTurn = 0;
         Store Toko = new Store();
-        GameState gameState = new GameState(player1, player2, JumlahTurn, Toko);
+        List<Plugin> plugins = new ArrayList<>();
+        GameState gameState = new GameState(player1, player2, JumlahTurn, Toko,plugins);
 
         // Set the number of turns and display the shuffle-card GUI if it's player1's turn
         gameState.setJumlahTurn();

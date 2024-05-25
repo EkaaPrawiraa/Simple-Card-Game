@@ -3,11 +3,12 @@ package org.example.tubes.plugin;
 import org.example.tubes.GameState;
 import org.example.tubes.Plugin;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.File;
 import java.io.IOException;
 
-public class JSONFileLoader implements Plugin {
-    private ObjectMapper objectMapper = new ObjectMapper();
+public class YAML implements Plugin {
+    private ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
 
     @Override
     public void save(String filename, GameState gameState) {
@@ -26,5 +27,10 @@ public class JSONFileLoader implements Plugin {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public String getName() {
+        return "YAML";
     }
 }
