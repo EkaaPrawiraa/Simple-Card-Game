@@ -388,8 +388,13 @@ public class MainController {
         if(isBearAttack){
             return;
         }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("toko.fxml"));
+        Parent root = loader.load();
+        TokoController tokoController = loader.getController();
+        tokoController.setGameState(this.gamestate);
+        tokoController.setToko(this.gamestate.getToko());
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("toko.fxml")));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("toko.css")).toExternalForm());
         stage.setScene(scene);

@@ -182,7 +182,7 @@
                               <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                            </padding>
                         </Button>
-                        <Button layoutX="130.0" layoutY="60.0" mnemonicParsing="false" styleClass="button" text="Toko">
+                        <Button layoutX="130.0" layoutY="60.0" mnemonicParsing="false" onAction="#switchToko" styleClass="button" text="Toko">
                            <font>
                               <Font size="20.0" />
                            </font>

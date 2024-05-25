@@ -1,27 +1,30 @@
 package org.example.tubes;
 
-import javafx.util.Pair;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Store {
-    private List<Pair<Kartu, Integer>> Barang;
+    private Map<Kartu, Integer> Barang;
 
-    public Store(){
-        Barang = new ArrayList<Pair<Kartu, Integer>>();
+    public Store() {
+        Barang = new HashMap<>();
     }
-    public Store(List<Pair<Kartu, Integer>> Barang){
+
+    public Store(Map<Kartu, Integer> Barang) {
         this.Barang = Barang;
     }
-    public List<Pair<Kartu, Integer>> getBarang(){
+
+    public Map<Kartu, Integer> getBarang() {
         return Barang;
     }
 
-//    public void deleteBarang(Kartu k){
-//        this.Barang.remove(k);
-//    }
-//    public void addBarang(Kartu k){
-//        this.Barang.add(k);
-//    }
+    public void addItem(Kartu kartu, int quantity) {
+        Barang.put(kartu, quantity);
+    }
+
+    public void updateQuantity(Kartu kartu, int newQuantity) {
+        Barang.put(kartu, newQuantity);
+    }
+
+    // You can add methods to remove items based on Kartu or other criteria
 }

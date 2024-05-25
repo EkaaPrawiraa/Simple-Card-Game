@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class Main extends Application {
 
         int JumlahTurn = 0;
         Store Toko = new Store();
+        Toko.getBarang().put(Utility.constructor("sirip hiu"), 2);
         List<Plugin> plugins = new ArrayList<>();
         GameState gameState = new GameState(player1, player2, JumlahTurn, Toko,plugins);
 
