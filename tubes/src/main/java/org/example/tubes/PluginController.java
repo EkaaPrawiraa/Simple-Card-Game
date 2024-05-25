@@ -70,7 +70,7 @@ public class PluginController {
         if (plugins.size() == 0) {
             return false;
         }
-        this.gamestate.addPlugin(plugins.get(0));
+        this.gamestate.availPlugin.add(plugins.get(0));
         return true;
     }
 
@@ -91,13 +91,16 @@ public class PluginController {
     }
     @FXML
     private void switchMain(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+        MainController mainController = loader.getController();
+        mainController.setPlayerAndCards(this.gamestate, false);
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
-        Scene scene = new Scene(root);
+        Scene scene  = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("main.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
-
     }
     public static void extractJar(File jarFile, File destDir) throws IOException {
         if (!destDir.exists()) {

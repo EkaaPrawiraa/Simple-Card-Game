@@ -43,8 +43,14 @@ public class SaveController {
 
     @FXML
     private void handleSave() {
-        boolean saveSuccessful = performSaveOperation();
-
+        boolean saveSuccessful;
+        if (!dropdown.getValue().equals("txt")){
+            this.gamestate.availPlugin.get(0).save(selectedFolderButton.getText(), this.gamestate);
+            saveSuccessful = true;
+        }
+        else {
+            saveSuccessful = performSaveOperation();
+        }
         if (saveSuccessful) {
             messageLabel.setText("Saved Successfully");
             messageLabel.setTextFill(Color.GREEN);
@@ -59,22 +65,12 @@ public class SaveController {
 
     @FXML
     private void chooseFolder() {
-        if (dropdown.getValue() != null && !dropdown.getValue().equals("txt")) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select File");
-            Stage stage = (Stage) selectedFolderButton.getScene().getWindow();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null) {
-                selectedFolderButton.setText(selectedFile.getPath());
-            }
-        } else {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setTitle("Select Folder");
-            Stage stage = (Stage) selectedFolderButton.getScene().getWindow();
-            File selectedDirectory = directoryChooser.showDialog(stage);
-            if (selectedDirectory != null) {
-                selectedFolderButton.setText(selectedDirectory.getPath());
-            }
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Select Folder");
+        Stage stage = (Stage) selectedFolderButton.getScene().getWindow();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        if (selectedDirectory != null) {
+            selectedFolderButton.setText(selectedDirectory.getPath());
         }
     }
 
@@ -106,11 +102,14 @@ public class SaveController {
         if (gamestate != null && dropdown != null) {
             List<String> options = new ArrayList<>();
             options.add("txt");
+            System.out.println(" ");
             for (Plugin plugin: this.gamestate.availPlugin){
+                System.out.println(plugin.getName());
                 options.add(plugin.getName());
             }
             dropdown.getItems().addAll(options);
-            dropdown.setValue("txt");  // Set default value
+            dropdown.setValue("txt");
+            System.out.println("test2");// Set default value
         }
     }
 }

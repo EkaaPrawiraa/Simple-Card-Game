@@ -82,7 +82,11 @@ public class LoadController {
     private boolean performLoadOperation() {
         try{
             List<Plugin> plugins = this.gamestate.availPlugin;
-            this.gamestate = IO.load(selectedFolderButton.getText());
+            if (!dropdown.getValue().equals("txt")){
+                this.gamestate=this.gamestate.availPlugin.get(0).load(selectedFolderButton.getText());
+            }
+            else{
+            this.gamestate = IO.load(selectedFolderButton.getText());}
             this.gamestate.availPlugin = plugins;
             return true;
         } catch (IOException e) {
