@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.tubes.KartuController">
     <children>
-        <Label fx:id="Kartu" layoutX="248.0" layoutY="55.0" text="Domba" textAlignment="CENTER">
+        <Label fx:id="Kartu" layoutX="248.0" layoutY="55.0" textAlignment="CENTER">
             <font>
                 <Font size="24.0" />
             </font>

@@ -27,6 +27,7 @@ public class Mahluk extends Kartu{
         this.harvet_product = null;
     }
 
+
     public List<Item> getEffects() {
         return effects;
     }
@@ -52,6 +53,25 @@ public class Mahluk extends Kartu{
     }
     public Produk getHarvest_product(){
         return harvet_product;
+    }
+    public String printeffect(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(accelerate+delay+protect+trap);
+        sb.append(" ");
+        for (int i = 0; i < accelerate; i++){
+            sb.append("ACCELERATE ");
+        }
+        for (int i = 0; i< delay; i++){
+            sb.append("DELAY ");
+        }
+        for (int i = 0; i< protect;i++){
+            sb.append("PROTECT ");
+        }
+        for (int i = 0; i< trap;i++){
+            sb.append("TRAP ");
+        }
+        sb.deleteCharAt(sb.length()- 1);
+        return sb.toString();
     }
 }
 

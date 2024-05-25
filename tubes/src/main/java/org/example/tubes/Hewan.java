@@ -51,6 +51,7 @@ public class Hewan extends Mahluk implements Doping {
         if (Objects.equals(item.getEffect(), "accelerate")){
             accelerate++;
             setWeight(getWeight()+8);
+
         }else if (Objects.equals(item.getEffect(), "delay")){
             delay++;
             if (getWeight()<5){

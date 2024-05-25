@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -37,6 +38,18 @@ public class MainController {
     @FXML
     private Label deck_label;
 
+    @FXML
+    private Label PLayer1;
+
+    @FXML
+    private Label PLayer2;
+
+    @FXML
+    private Label Gulden1;
+
+    @FXML
+    private Label Gulden2;
+
     private List<Image> cards;
 
     private Player player;
@@ -61,32 +74,38 @@ public class MainController {
         if(this.gamestate.getJumlahTurn() % 2 == 1){
             this.player = this.gamestate.getPlayer1();
             this.musuh = this.gamestate.getPlayer2();
+            PLayer1.setStyle("-fx-text-fill: red;");
         }
         else{
             this.player = this.gamestate.getPlayer2();
             this.musuh = this.gamestate.getPlayer1();
+            PLayer2.setStyle("-fx-text-fill: red;");
         }
-        System.out.println(this.player.getKartuList().size());
+        Gulden1.setText(String.valueOf(this.player.getGulden())+ "$");
+        Gulden2.setText(String.valueOf(this.musuh.getGulden())+ "$");
         turn_label.setText(String.valueOf(this.gamestate.getJumlahTurn()));
         deck_label.setText(String.valueOf(this.player.getKartuList().size()) + "/40");
         setDeckActive(this.player);
         setLadang(this.player);
     }
 
+
     private void setDeckActive(Player player){
         List<Kartu> dek = player.getActiveDeck();
         int row = 0;
         for (int col = 0; col < dek.size(); col++) {
             Kartu kartu = dek.get(col);
-            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getPropertites())));
-            StackPane stackPane = getStackPane(deck, row, col);
-            if (stackPane != null) {
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(98); // Set width to 98
-                imageView.setFitHeight(115); // Set height to 115
-                imageView.setOnDragDetected(this::handleCardDragDetection);
-                stackPane.getChildren().add(imageView);
-                addKartuMapping(imageView, kartu);
+            if(kartu != null){
+                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getPropertites())));
+                StackPane stackPane = getStackPane(deck, row, col);
+                if (stackPane != null) {
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(98); // Set width to 98
+                    imageView.setFitHeight(115); // Set height to 115
+                    imageView.setOnDragDetected(this::handleCardDragDetection);
+                    stackPane.getChildren().add(imageView);
+                    addKartuMapping(imageView, kartu);
+                }
             }
         }
 
@@ -278,6 +297,7 @@ public class MainController {
                     } else if (this.card instanceof Produk && targetKartu instanceof Hewan) {
                         System.out.println(targetKartu.getClass());
                         ((Hewan) targetKartu).feed((Produk) this.card);
+                        this.player.delActiveDeck(this.card);
                     }
                 } else {
                     // No card in the target holder, add the dragged card
@@ -374,11 +394,36 @@ public class MainController {
     @FXML
     private void handlenextbutton(ActionEvent event)  throws IOException {
         this.gamestate.setJumlahTurn();
-        if(this.gamestate.getJumlahTurn() % 2 == 1){
+        if (this.gamestate.getJumlahTurn() == 20) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            if (this.player.getGulden() > this.musuh.getGulden()) {
+                alert.setTitle("Hasil Permainan");
+                alert.setHeaderText(null);
+                alert.setContentText("Player2 menang");
+                alert.showAndWait();
+            } else if (this.player.getGulden() < this.musuh.getGulden()) {
+                alert.setTitle("Hasil Permainan");
+                alert.setHeaderText(null);
+                alert.setContentText("Player1 menang");
+                alert.showAndWait();
+            } else {
+                alert.setTitle("Hasil Permainan");
+                alert.setHeaderText(null);
+                alert.setContentText("Yahhh Seri nihh");
+                alert.showAndWait();
+            }
+
+            // Menghentikan permainan dengan menutup jendela
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        }
+        else if(this.gamestate.getJumlahTurn() % 2 == 1){
             this.player = this.gamestate.getPlayer1();
+            this.musuh = this.gamestate.getPlayer2();
         }
         else{
             this.player = this.gamestate.getPlayer2();
+            this.musuh = this.gamestate.getPlayer1();
         }
 
         if(this.player.startTurn(this.player.getKartuList()) != null){
@@ -393,6 +438,8 @@ public class MainController {
             stage.show();
         }
         else{
+            clearPage_deck();
+            clearpage_ladang();
             setPlayerAndCards(this.gamestate);
         }
 

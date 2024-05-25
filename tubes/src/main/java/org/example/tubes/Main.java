@@ -30,20 +30,18 @@ public class Main extends Application {
         // Set the number of turns and display the shuffle-card GUI if it's player1's turn
         gameState.setJumlahTurn();
         if (gameState.getJumlahTurn() % 2 == 1) {
-            Platform.runLater(() -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("shuffle-kartu.fxml")); // Ensure the path is correct
                     Parent root = loader.load();
                     ShuffleController shuffleController = loader.getController();
                     shuffleController.setPlayerAndCards(gameState.getPlayer1(), gameState);
-//                    shuffleController.initialize();
+
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            });
         }
     }
 

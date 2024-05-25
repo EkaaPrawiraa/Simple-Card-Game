@@ -50,7 +50,7 @@ public class Ladang {
 
     }
     public void dellMahluk(int location){
-        this.mahluk.set(location, new Mahluk());
+        this.mahluk.set(location, null);
     }
     private static String idxtostring(int idx){
         int row = idx/4;

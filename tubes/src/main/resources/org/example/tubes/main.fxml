@@ -24,16 +24,16 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 25; -fx-font-weight: bold; -fx-text-fill: grey;" text="PLAYER 1" />
-                              <Label alignment="CENTER" layoutX="199.0" layoutY="23.0" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 23; -fx-font-weight: bold; -fx-text-fill: grey;" text="100$" />
+                              <Label fx:id="PLayer1" alignment="CENTER" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 25; -fx-font-weight: bold; -fx-text-fill: grey;" text="PLAYER 1" />
+                              <Label fx:id="Gulden1" alignment="CENTER" layoutX="199.0" layoutY="23.0" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 23; -fx-font-weight: bold; -fx-text-fill: grey;" text="100$" />
                            </children>
                            <padding>
                               <Insets left="50.0" />
                            </padding></HBox>
                         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 25; -fx-font-weight: bold; -fx-text-fill: grey;" text="PLAYER 2" />
-                              <Label alignment="CENTER" layoutX="199.0" layoutY="23.0" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 23; -fx-font-weight: bold; -fx-text-fill: grey;" text="100$" />
+                              <Label fx:id="PLayer2" alignment="CENTER" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 25; -fx-font-weight: bold; -fx-text-fill: grey;" text="PLAYER 2" />
+                              <Label fx:id="Gulden2" alignment="CENTER" layoutX="199.0" layoutY="23.0" prefHeight="30.0" prefWidth="123.0" style="-fx-font-size: 23; -fx-font-weight: bold; -fx-text-fill: grey;" />
                            </children>
                            <padding>
                               <Insets left="50.0" />

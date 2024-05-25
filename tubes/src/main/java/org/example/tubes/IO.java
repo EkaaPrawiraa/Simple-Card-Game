@@ -76,6 +76,13 @@ public class IO {
             for (Mahluk item : ladangItems) {
                 if (!Objects.equals(item, null)) {
                     writer.write(idxtostring(index)+ " "+ item.getName());
+                    if (item instanceof Hewan) {
+                        Hewan hewan = (Hewan) item;
+                        writer.write(" " + hewan.getWeight() + " " + hewan.printeffect());
+                    }else if (item instanceof Tanaman){
+                        Tanaman tanaman = (Tanaman) item;
+                        writer.write(" "+ tanaman.getAge()+" "+ tanaman.printeffect());
+                    }
                     writer.newLine();
                 }
                 index++;
@@ -149,11 +156,78 @@ public class IO {
 
                         for (int i = 0; i <len; i++ ){
                             line = bufferedReader.readLine();
-                            String[] parts = line.split(" ", 2);
+                            String[] parts = line.split(" ");
                             char a = parts[0].charAt(0);
                             String b = parts[0].substring(1);
+                            Boolean word2 = false;
+                            String mah = parts[1];
+                            if (!isStringInteger(parts[2])){
+                                mah+=parts[2];
+                                word2 = true;
+                            }
+                            Mahluk ma =(Mahluk) Utility.constructor(mah);
+                            if (ma instanceof Hewan){
+                                Hewan he = (Hewan) ma;
+                                if (word2){
+                                    he.setWeight(Integer.parseInt(parts[3]));
+                                    for (int j = 0; j<Integer.parseInt(parts[4]);j++) {
+                                        if (parts[j + 5].equalsIgnoreCase("ACCELERATE")) {
+                                            he.accelerate++;
+                                        } else if (parts[j + 5].equalsIgnoreCase("DELAY")) {
+                                            he.delay++;
+                                        } else if (parts[j + 5].equalsIgnoreCase("PROTECT")) {
+                                            he.protect++;
+                                        } else if (parts[j + 5].equalsIgnoreCase("TRAP")) {
+                                            he.trap++;
+                                        }
+                                    }
+                                }else {
+                                    he.setWeight(Integer.parseInt(parts[2]));
+                                    for (int j = 0; j<Integer.parseInt(parts[3]);j++) {
+                                        if (parts[j + 4].equalsIgnoreCase("ACCELERATE")) {
+                                            he.accelerate++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("DELAY")) {
+                                            he.delay++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("PROTECT")) {
+                                            he.protect++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("TRAP")) {
+                                            he.trap++;
+                                        }
+                                    }
+                                }
+                            }else if (ma instanceof Tanaman){
+                                Tanaman ta = (Tanaman) ma;
+                                if (word2){
+                                    ta.setAge(Integer.parseInt(parts[3]));
+                                    for (int j = 0; j<Integer.parseInt(parts[4]);j++){
+                                        if (parts[j+5].equalsIgnoreCase("ACCELERATE")){
+                                            ta.accelerate++;
+                                        }else if (parts[j+5].equalsIgnoreCase("DELAY")){
+                                            ta.delay++;
+                                        }else if (parts[j+5].equalsIgnoreCase("PROTECT")){
+                                            ta.protect++;
+                                        }else if (parts[j+5].equalsIgnoreCase("TRAP")){
+                                            ta.trap++;
+                                        }
+                                    }
+                                }else{
+                                    ta.setAge(Integer.parseInt(parts[2]));
+                                    for (int j = 0; j<Integer.parseInt(parts[3]);j++) {
+                                        if (parts[j + 4].equalsIgnoreCase("ACCELERATE")) {
+                                            ta.accelerate++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("DELAY")) {
+                                            ta.delay++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("PROTECT")) {
+                                            ta.protect++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("TRAP")) {
+                                            ta.trap++;
+                                        }
+                                    }
+                                }
+                            }
                             int index = ((int)(a-'A')*5) + Integer.parseInt(b);
-                            gamestate.player1.getLadang().addMahluk(Utility.constructor(parts[1]), index);
+                            gamestate.player1.getLadang().addMahluk(ma, index);
+
                         }
 
                     } catch (IOException e) {
@@ -169,9 +243,9 @@ public class IO {
                         int len = Integer.parseInt(line);
                         List<Kartu> listka = new ArrayList<>(len);
                         line = bufferedReader.readLine();
-                        gamestate.player1.setKartuList(Main.generateAllCard());
-                        while (gamestate.player1.getKartuList().size()>Integer.parseInt(line)) {
-                            gamestate.player1.getKartuList().removeLast();
+                        gamestate.player2.setKartuList(Main.generateAllCard());
+                        while (gamestate.player2.getKartuList().size()>Integer.parseInt(line)) {
+                            gamestate.player2.getKartuList().removeLast();
                         }
                         for (int i = 0; i< len;i++){
                             line = bufferedReader.readLine();
@@ -185,11 +259,77 @@ public class IO {
 
                         for (int i = 0; i <len; i++ ){
                             line = bufferedReader.readLine();
-                            String[] parts = line.split(" ", 2);
+                            String[] parts = line.split(" ");
                             char a = parts[0].charAt(0);
                             String b = parts[0].substring(1);
-                            int index = ((int)a-'A'*5) + Integer.parseInt(b);
-                            gamestate.player2.getLadang().addMahluk(Utility.constructor(parts[1]), index);
+                            Boolean word2 = false;
+                            String mah = parts[1];
+                            if (!isStringInteger(parts[2])){
+                                mah+=parts[2];
+                                word2 = true;
+                            }
+                            Mahluk ma =(Mahluk) Utility.constructor(mah);
+                            if (ma instanceof Hewan){
+                                Hewan he = (Hewan) ma;
+                                if (word2){
+                                    he.setWeight(Integer.parseInt(parts[3]));
+                                    for (int j = 0; j<Integer.parseInt(parts[4]);j++) {
+                                        if (parts[j + 5].equalsIgnoreCase("ACCELERATE")) {
+                                            he.accelerate++;
+                                        } else if (parts[j + 5].equalsIgnoreCase("DELAY")) {
+                                            he.delay++;
+                                        } else if (parts[j + 5].equalsIgnoreCase("PROTECT")) {
+                                            he.protect++;
+                                        } else if (parts[j + 5].equalsIgnoreCase("TRAP")) {
+                                            he.trap++;
+                                        }
+                                    }
+                                }else {
+                                    he.setWeight(Integer.parseInt(parts[2]));
+                                    for (int j = 0; j<Integer.parseInt(parts[3]);j++) {
+                                        if (parts[j + 4].equalsIgnoreCase("ACCELERATE")) {
+                                            he.accelerate++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("DELAY")) {
+                                            he.delay++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("PROTECT")) {
+                                            he.protect++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("TRAP")) {
+                                            he.trap++;
+                                        }
+                                    }
+                                }
+                            }else if (ma instanceof Tanaman){
+                                Tanaman ta = (Tanaman) ma;
+                                if (word2){
+                                    ta.setAge(Integer.parseInt(parts[3]));
+                                    for (int j = 0; j<Integer.parseInt(parts[4]);j++){
+                                        if (parts[j+5].equalsIgnoreCase("ACCELERATE")){
+                                            ta.accelerate++;
+                                        }else if (parts[j+5].equalsIgnoreCase("DELAY")){
+                                            ta.delay++;
+                                        }else if (parts[j+5].equalsIgnoreCase("PROTECT")){
+                                            ta.protect++;
+                                        }else if (parts[j+5].equalsIgnoreCase("TRAP")){
+                                            ta.trap++;
+                                        }
+                                    }
+                                }else{
+                                    ta.setAge(Integer.parseInt(parts[2]));
+                                    for (int j = 0; j<Integer.parseInt(parts[3]);j++) {
+                                        if (parts[j + 4].equalsIgnoreCase("ACCELERATE")) {
+                                            ta.accelerate++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("DELAY")) {
+                                            ta.delay++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("PROTECT")) {
+                                            ta.protect++;
+                                        } else if (parts[j + 4].equalsIgnoreCase("TRAP")) {
+                                            ta.trap++;
+                                        }
+                                    }
+                                }
+                            }
+                            int index = ((int)(a-'A')*5) + Integer.parseInt(b);
+                            gamestate.player2.getLadang().addMahluk(ma, index);
                         }
 
                     } catch (IOException e) {
@@ -202,6 +342,16 @@ public class IO {
         }
         return gamestate;
     }
+    public static boolean isStringInteger(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
 //        try {
 //            // Walk the directory tree and get a stream of all paths
 ////            Stream<Path> pathStream = Files.walk(Paths.get(folderpath), FileVisitOption.FOLLOW_LINKS);

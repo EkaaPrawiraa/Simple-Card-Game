@@ -71,6 +71,7 @@ public class KartuController {
             // Update weight and count
             Weight.setText(String.valueOf(hewan.getWeight()));
             Count.setText("(" + String.valueOf(hewan.getHarvest_value()) + ")");
+            Kartu.setText(hewan.getName());
 
             // Update active items
             Map<String, Integer> itemCountMap = new HashMap<>();
@@ -88,7 +89,6 @@ public class KartuController {
                         .append("), ");
             }
 
-            // Remove trailing comma and space, if any
             if (activeItemsDescription.length() > 0) {
                 activeItemsDescription.setLength(activeItemsDescription.length() - 2);
             }
@@ -101,10 +101,10 @@ public class KartuController {
     private void updateTanamanUI() {
         if (tanaman != null) {
             image.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(tanaman.getPropertites()))));
-            // Assuming Tanaman has similar properties or you can add specific ones
-            // For example:
+
             Weight.setText(String.valueOf(tanaman.getAge()));
             Count.setText("(" + String.valueOf(tanaman.getHarvest_value() + ")"));
+            Kartu.setText(tanaman.getName());
             // Update active items
             Map<String, Integer> itemCountMap = new HashMap<>();
             for (Item item : tanaman.getEffects()) {
@@ -127,7 +127,6 @@ public class KartuController {
             }
 
             Active_Items.setText(activeItemsDescription.toString());
-//             activeItems.setText(tanaman.getActiveItemsDescription());
         }
     }
 

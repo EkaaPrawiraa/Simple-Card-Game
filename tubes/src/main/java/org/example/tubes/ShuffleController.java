@@ -73,19 +73,20 @@ public class ShuffleController {
 
     @FXML
     private void switchMain(ActionEvent event) throws IOException {
-        Iterator<Kartu> iterator = this.shuffle.iterator();
-        while (iterator.hasNext()) {
-            Kartu kartu = iterator.next();
+        List<Kartu> kartuList = new ArrayList<>(this.shuffle);
+
+        // Transfer all cards from shuffle to player's active deck
+        for (Kartu kartu : kartuList) {
             this.player.addActiveDeck(kartu);
-            iterator.remove();
+            this.player.removeKartu(kartu);
         }
 
-        iterator = this.shuffle.iterator();
-        while (iterator.hasNext()) {
-            Kartu kartu = iterator.next();
-            this.player.removeKartu(kartu);
-            iterator.remove(); // Menghapus item dari shuffle
-        }
+//        // Iterate over the copied list to remove cards from the player
+//        for (Kartu kartu : kartuList) {
+//            this.player.removeKartu(kartu);
+//        }
+
+        kartuList.clear();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         Parent root = loader.load();
