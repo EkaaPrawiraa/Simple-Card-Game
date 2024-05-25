@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class KartuApplication extends Application {
 
@@ -18,7 +19,7 @@ public class KartuApplication extends Application {
 
         // Menyiapkan scene
         Scene scene = new Scene(root, 600, 400);
-
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("main.css")).toExternalForm());
         // Menyiapkan stage
         primaryStage.setTitle("Kartu Application");
         primaryStage.setScene(scene);

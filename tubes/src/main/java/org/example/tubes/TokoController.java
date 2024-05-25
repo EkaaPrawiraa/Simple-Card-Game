@@ -395,37 +395,54 @@ public class TokoController implements Initializable {
     }
 
     @FXML
-    private void handleBeli(ActionEvent event){
+    private void handleBeli(ActionEvent event) throws Exception{
         System.out.println("test");
         int total_harga = 0;
         for (Map.Entry<String, Integer> entry : this.barang_beli.entrySet()) {
-            total_harga += getHarga(entry.getKey());
+            total_harga += getHarga(entry.getKey()) * entry.getValue();
         }
 
         if (this.gameState.getJumlahTurn() % 2 == 1){
             if(total_harga <= this.gameState.getPlayer1().getGulden()){
+                System.out.println(total_harga);
                 this.gameState.getPlayer1().setGulden(this.gameState.getPlayer1().getGulden() - total_harga);
-                updateToko();
+                updateStorePLayer(this.gameState.getPlayer1());
                 System.out.println(this.gameState.getToko().getBarang());
             }else{
 
             }
         }else{
-            if(total_harga <= this.gameState.getPlayer1().getGulden()){
-                this.gameState.getPlayer1().setGulden(this.gameState.getPlayer1().getGulden() - total_harga);
-                updateToko();
+            if(total_harga <= this.gameState.getPlayer2().getGulden()){
+                System.out.println(total_harga);
+                this.gameState.getPlayer2().setGulden(this.gameState.getPlayer2().getGulden() - total_harga);
+                updateStorePLayer(this.gameState.getPlayer2());
                 System.out.println(this.gameState.getToko().getBarang());
             }
         }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+        MainController mainController = loader.getController();
+        mainController.setPlayerAndCards(this.gameState, false);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene  = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("main.css")).toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private void updateToko(){
+    private void updateStorePLayer(Player player){
         for(Map.Entry<Kartu, Integer> entry : this.gameState.getToko().getBarang().entrySet()){
             if (this.barang_beli.containsKey(entry.getKey().getName())){
+                if (this.barang_beli != null) {
+                    for (int i = 0; i < this.barang_beli.get(entry.getKey().getName()); i++) {
+                        player.addKartu(entry.getKey());
+                    }
+                }
                 this.gameState.getToko().updateQuantity(entry.getKey(), entry.getValue() - this.barang_beli.get(entry.getKey().getName()));
             }
         }
-        setToko(this.gameState.getToko());
+        System.out.println(player.getKartuList());
     }
 }
 

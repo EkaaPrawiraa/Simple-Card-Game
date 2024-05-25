@@ -94,7 +94,9 @@ public class ShuffleController {
         mainController.setPlayerAndCards(this.gameState, true);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("main.css")).toExternalForm());
+        stage.setScene(scene);
         stage.show();
     }
 }

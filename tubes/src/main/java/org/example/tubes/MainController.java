@@ -85,14 +85,18 @@ public class MainController {
         if (this.gamestate.getJumlahTurn() % 2 == 1) {
             this.player = this.gamestate.getPlayer1();
             this.musuh = this.gamestate.getPlayer2();
-            PLayer1.setStyle("-fx-text-fill: red;");
+            PLayer1.setStyle("-fx-text-fill: red;"+
+                    "-fx-font-size: 25;" +
+                    "-fx-font-weight: bold");
         } else {
             this.player = this.gamestate.getPlayer2();
             this.musuh = this.gamestate.getPlayer1();
-            PLayer2.setStyle("-fx-text-fill: red;");
+            PLayer2.setStyle("-fx-text-fill: red;" +
+                    "-fx-font-size: 25;" +
+                    "-fx-font-weight: bold");
         }
-        Gulden1.setText(String.valueOf(this.player.getGulden()) + "$");
-        Gulden2.setText(String.valueOf(this.musuh.getGulden()) + "$");
+        Gulden1.setText(String.valueOf(this.gamestate.getPlayer1().getGulden()) + "$");
+        Gulden2.setText(String.valueOf(this.gamestate.getPlayer2().getGulden()) + "$");
         turn_label.setText(String.valueOf(this.gamestate.getJumlahTurn()));
         deck_label.setText(String.valueOf(this.player.getKartuList().size()) + "/40");
         setDeckActive(this.player);
@@ -200,22 +204,22 @@ public class MainController {
                         berdone = true;
                     }
                     cell.setStyle(
-                            "-fx-background-radius: 10; " +
-                                    "-fx-border-radius: 10; " +
+                            "-fx-background-radius: 10px; " +
+                                    "-fx-border-radius: 10px; " +
                                     "-fx-border-color: grey; " +
-                                    "-fx-border-color: #D6D6D6; " +
+                                    "-fx-background-color: #D6D6D6; " +
                                     "-fx-border-style: segments(10, 5); " +
-                                    "-fx-border-width: 1.5;"
+                                    "-fx-border-width: 1.5px;"
                     );
                 }else if (cell != null) {
 //                    cell.setBorder(Border.EMPTY);
                     cell.setStyle(
-                            "-fx-background-radius: 10; " +
-                                    "-fx-border-radius: 10; " +
+                            "-fx-background-radius: 10px; " +
+                                    "-fx-border-radius: 10px; " +
                                     "-fx-border-color: grey; " +
-                                    "-fx-border-color: #D6D6D6; " +
+                                    "-fx-background-color: #D6D6D6; " +
                                     "-fx-border-style: segments(10, 5); " +
-                                    "-fx-border-width: 1.5;"
+                                    "-fx-border-width: 1.5px;"
                     );
                     if (cell instanceof StackPane) {
                         StackPane stackPane = (StackPane) cell;
