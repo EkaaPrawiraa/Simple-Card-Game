@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mahluk extends Kartu{
-    private List<Item> effects;
+    protected List<Item> effects;
     private int harvest_value;
     private Produk harvet_product;
     protected int accelerate = 0;

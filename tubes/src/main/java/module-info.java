@@ -7,6 +7,7 @@ module org.example.tubes {
     requires org.kordamp.ikonli.javafx;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.yaml;
+    requires java.desktop;
 
     opens org.example.tubes to javafx.fxml;
     exports org.example.tubes;
