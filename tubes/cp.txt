@@ -1,1 +1,1 @@
-Class-Path: lib/jackson-databind-2.12.3.jar lib/jackson-core-2.12.3.jar lib/jackson-annotations-2.12.3.jar src/main/java/org/example/tubes/plugin/JSON.java
+Class-Path: lib/jackson-databind-2.12.3.jar lib/jackson-core-2.12.3.jar lib/jackson-annotations-2.12.3.jar src/main/java/org/example/tubes/plugin/YAML.java src/main/java/org/example/tubes/GameState.java
