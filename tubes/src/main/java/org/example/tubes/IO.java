@@ -162,7 +162,7 @@ public class IO {
                             Boolean word2 = false;
                             String mah = parts[1];
                             if (!isStringInteger(parts[2])){
-                                mah+=parts[2];
+                                mah= mah + " " +parts[2];
                                 word2 = true;
                             }
                             Mahluk ma =(Mahluk) Utility.constructor(mah);
@@ -265,7 +265,7 @@ public class IO {
                             Boolean word2 = false;
                             String mah = parts[1];
                             if (!isStringInteger(parts[2])){
-                                mah+=parts[2];
+                                mah = mah + " " + parts[2];
                                 word2 = true;
                             }
                             Mahluk ma =(Mahluk) Utility.constructor(mah);

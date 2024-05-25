@@ -16,7 +16,6 @@
          <Font size="24.0" />
       </font>
    </Label>
-   <ChoiceBox layoutX="235.0" layoutY="134.0" prefHeight="25.0" prefWidth="303.0" />
    <Label layoutX="32.0" layoutY="182.0" text="Folder">
       <font>
          <Font size="24.0" />
@@ -25,4 +24,5 @@
    <Button fx:id="selectedFolderButton" layoutX="236.0" layoutY="188.0" mnemonicParsing="false" onAction="#chooseFolder" prefHeight="25.0" prefWidth="303.0" style="-fx-background-color: white;" />
    <Button layoutX="32.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="507.0" text="Load" />
    <Label fx:id="messageLabel" layoutX="32.0" layoutY="282.0" text="" />
+   <ComboBox layoutX="234.0" layoutY="134.0" prefHeight="25.0" prefWidth="303.0" />
 </AnchorPane>

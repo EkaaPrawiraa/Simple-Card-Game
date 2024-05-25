@@ -1,8 +1,8 @@
 0
 3
-18
-A01 Destroy
-B01 Bear Trap
-C01 daging domba
+36
+A01 Biji Stroberi
+B01 Destroy
+C01 jagung
 1
-D02 Hiu Darat
+D02 Biji Labu 0 0
