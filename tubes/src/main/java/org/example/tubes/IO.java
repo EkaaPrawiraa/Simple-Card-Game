@@ -8,9 +8,7 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,11 +19,11 @@ public class IO {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(folderpath, "gamestate.txt").toString()))) {
                 writer.write(String.valueOf(gamestate.getJumlahTurn()));
                 writer.newLine();
-                List<Pair<Kartu, Integer>> tokoItems = gamestate.getToko().getBarang();
+                Map<Kartu, Integer> tokoItems = gamestate.getToko().getBarang();
                 writer.write(String.valueOf(tokoItems.size()));
                 writer.newLine();
-                for (Pair<Kartu, Integer> item : tokoItems) {
-                    writer.write(item.getKey().getName() + " " + item.getValue());
+                for (Kartu item : tokoItems.keySet()) {
+                    writer.write(item.getName() + " " + tokoItems.get(item));
                     writer.newLine();
                 }
             }
@@ -116,11 +114,11 @@ public class IO {
                         gamestate.jumlahTurn = Integer.parseInt(line);
                         line = bufferedReader.readLine();
                         int amount = Integer.parseInt(line);
-                        List<Pair<Kartu, Integer>> toko= new ArrayList<>();
+                        Map<Kartu, Integer> toko= new HashMap<>();
                         for (int i = 0; i<amount;i++){
                             line = bufferedReader.readLine();
                             String[] storepair = line.split(" ");
-                            toko.add(new Pair<>(Utility.constructor(storepair[0]), Integer.parseInt(storepair[1])));
+                            toko.put(Utility.constructor(storepair[0]), Integer.parseInt(storepair[1]));
                         }
                         gamestate.setToko(new Store(toko));
                     } catch (IOException e) {
