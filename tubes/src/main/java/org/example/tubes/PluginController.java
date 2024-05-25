@@ -14,9 +14,13 @@ import javafx.scene.control.ComboBox;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
-
-
-import org.example.tubes.Plugin;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -34,6 +38,8 @@ import java.util.jar.JarFile;
 public class PluginController {
     private GameState gamestate;
     public void setGamestate(GameState gamestate) {
+        System.out.println("test");
+        System.out.println(gamestate.getJumlahTurn());
         this.gamestate = gamestate;
     }
     @FXML
@@ -54,11 +60,17 @@ public class PluginController {
     }
     private boolean performPlugin(){
         File pluginDir = new File(this.filename.getText());
+        File destDir = new File("target/classes/org/example/tubes/");
+        try {
+            extractJar(pluginDir, destDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         final List<Plugin> plugins = loadPluginsFromJar(pluginDir);
         if (plugins.size() == 0) {
             return false;
         }
-        this.gamestate.availPlugin=plugins;
+        this.gamestate.addPlugin(plugins.get(0));
         return true;
     }
 
@@ -85,22 +97,48 @@ public class PluginController {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("main.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
+
     }
+    public static void extractJar(File jarFile, File destDir) throws IOException {
+        if (!destDir.exists()) {
+            destDir.mkdirs();
+        }
+        try (JarFile jar = new JarFile(jarFile)) {
+            Enumeration<JarEntry> entries = jar.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                File entryDestination = new File(destDir, entry.getName());
+                if (entry.isDirectory()) {
+                    entryDestination.mkdirs();
+                } else {
+                    entryDestination.getParentFile().mkdirs();
+                    try (InputStream in = jar.getInputStream(entry);
+                         FileOutputStream out = new FileOutputStream(entryDestination)) {
+                        byte[] buffer = new byte[1024];
+                        int len;
+                        while ((len = in.read(buffer)) != -1) {
+                            out.write(buffer, 0, len);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     private static List<Plugin> loadPluginsFromJar(File pluginDir) {
         List<Plugin> plugins = new ArrayList<>();
-
         try {
-            List<String> jarFiles = Arrays.asList(pluginDir.list((dir, name) -> name.endsWith(".jar")));
-            for (String jarFile : jarFiles) {
-                File file = new File(pluginDir, jarFile);
-                URL jarURL = file.toURI().toURL();
+            if (pluginDir.isFile() && pluginDir.getName().endsWith(".jar")) {
+                URL jarURL = pluginDir.toURI().toURL();
                 URLClassLoader classLoader = new URLClassLoader(new URL[]{jarURL}, Main.class.getClassLoader());
-                List<String> classNames = getClassNamesFromJar(jarFile);
+                List<String> classNames = getClassNamesFromJar(pluginDir.getPath());
 
                 for (String className : classNames) {
                     try {
-                        Class<?> clazz = classLoader.loadClass(className);
+
+                        String fullClassName = "org.example.tubes." + className;
+                        Class<?> clazz = classLoader.loadClass(fullClassName);
                         if (Plugin.class.isAssignableFrom(clazz)) {
                             Method loadMethod = clazz.getDeclaredMethod("load", String.class);
                             Method saveMethod = clazz.getDeclaredMethod("save", String.class, GameState.class);
@@ -113,6 +151,8 @@ public class PluginController {
                         e.printStackTrace();
                     }
                 }
+            } else {
+                System.err.println("The specified path is not a valid .jar file: " + pluginDir.getAbsolutePath());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,6 +162,7 @@ public class PluginController {
     }
 
     private static List<String> getClassNamesFromJar(String jarFilePath) {
+
         List<String> classNames = new ArrayList<>();
         try (JarFile jarFile = new JarFile(jarFilePath)) {
             Enumeration<JarEntry> entries = jarFile.entries();
