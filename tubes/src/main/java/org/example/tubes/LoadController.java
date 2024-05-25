@@ -66,7 +66,7 @@ public class LoadController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         Parent root = loader.load();
         MainController mainController = loader.getController();
-        mainController.setPlayerAndCards(this.gamestate);
+        mainController.setPlayerAndCards(this.gamestate, false);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

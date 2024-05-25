@@ -91,7 +91,7 @@ public class ShuffleController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         Parent root = loader.load();
         MainController mainController = loader.getController();
-        mainController.setPlayerAndCards(this.gameState);
+        mainController.setPlayerAndCards(this.gameState, true);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

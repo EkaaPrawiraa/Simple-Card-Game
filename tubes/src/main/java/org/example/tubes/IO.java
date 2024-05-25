@@ -352,6 +352,7 @@ public class IO {
             }
         }
         return true;
+    }
 //        try {
 //            // Walk the directory tree and get a stream of all paths
 ////            Stream<Path> pathStream = Files.walk(Paths.get(folderpath), FileVisitOption.FOLLOW_LINKS);

@@ -69,7 +69,7 @@ public class MainController {
     private boolean isladangmusuh = false;
 
 
-    public void setPlayerAndCards(GameState gamestate) {
+    public void setPlayerAndCards(GameState gamestate, boolean bearpossible) {
         this.gamestate = gamestate;
         if(this.gamestate.getJumlahTurn() % 2 == 1){
             this.player = this.gamestate.getPlayer1();
@@ -87,6 +87,19 @@ public class MainController {
         deck_label.setText(String.valueOf(this.player.getKartuList().size()) + "/40");
         setDeckActive(this.player);
         setLadang(this.player);
+
+        if (bearpossible)
+        {
+            Random random = new Random();
+            int randomNumber = random.nextInt(1, 11);
+            if(randomNumber == 10){
+                seranganBeruang();
+            }
+        }
+    }
+
+    private void seranganBeruang(){
+
     }
 
 
@@ -440,7 +453,7 @@ public class MainController {
         else{
             clearPage_deck();
             clearpage_ladang();
-            setPlayerAndCards(this.gamestate);
+            setPlayerAndCards(this.gamestate, true);
         }
 
 
