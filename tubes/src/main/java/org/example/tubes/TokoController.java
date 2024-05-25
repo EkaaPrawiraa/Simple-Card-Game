@@ -396,6 +396,7 @@ public class TokoController implements Initializable {
 
     @FXML
     private void handleBeli(ActionEvent event){
+        System.out.println("test");
         int total_harga = 0;
         for (Map.Entry<String, Integer> entry : this.barang_beli.entrySet()) {
             total_harga += getHarga(entry.getKey());
@@ -404,15 +405,27 @@ public class TokoController implements Initializable {
         if (this.gameState.getJumlahTurn() % 2 == 1){
             if(total_harga <= this.gameState.getPlayer1().getGulden()){
                 this.gameState.getPlayer1().setGulden(this.gameState.getPlayer1().getGulden() - total_harga);
-//                updateToko();
-                System.out.println("Beli Berhasil");
+                updateToko();
+                System.out.println(this.gameState.getToko().getBarang());
+            }else{
+
             }
         }else{
             if(total_harga <= this.gameState.getPlayer1().getGulden()){
                 this.gameState.getPlayer1().setGulden(this.gameState.getPlayer1().getGulden() - total_harga);
-                System.out.println("Beli Berhasil");
+                updateToko();
+                System.out.println(this.gameState.getToko().getBarang());
             }
         }
+    }
+
+    private void updateToko(){
+        for(Map.Entry<Kartu, Integer> entry : this.gameState.getToko().getBarang().entrySet()){
+            if (this.barang_beli.containsKey(entry.getKey().getName())){
+                this.gameState.getToko().updateQuantity(entry.getKey(), entry.getValue() - this.barang_beli.get(entry.getKey().getName()));
+            }
+        }
+        setToko(this.gameState.getToko());
     }
 }
 

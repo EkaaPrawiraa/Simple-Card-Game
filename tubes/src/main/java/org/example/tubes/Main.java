@@ -21,13 +21,14 @@ public class Main extends Application {
         List<Kartu> allcards1 = generateAllCard();
         List<Kartu> allcards2 = generateAllCard();
         Player player1 = new Player();
+        player1.setGulden(100);
         Player player2 = new Player();
         player1.setKartuList(allcards1);
         player2.setKartuList(allcards2);
 
         int JumlahTurn = 0;
         Store Toko = new Store();
-        Toko.getBarang().put(Utility.constructor("sirip hiu"), 2);
+        Toko.getBarang().put(Utility.constructor("telur"), 2);
         List<Plugin> plugins = new ArrayList<>();
         GameState gameState = new GameState(player1, player2, JumlahTurn, Toko,plugins);
 
